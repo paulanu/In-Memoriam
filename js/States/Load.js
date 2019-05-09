@@ -4,6 +4,7 @@ Load.prototype= {
     preload: function() {
         // load assets
         console.log('LOAD');
+        
     },
     create: function() {
         // go to MainMenu

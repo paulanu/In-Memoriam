@@ -15,7 +15,10 @@ window.onload = function() {
     game.state.add('Play', Play);
     game.state.add('GameOver', GameOver);
 
+    //test states
     game.state.add('PaulaTestLevel', PaulaTestLevel);
+    game.state.add('PaulaTestLevel2', PaulaTestLevel2);
 
+    //start initial state
     game.state.start('Load');
 }
