@@ -1,7 +1,6 @@
 // play state
 var PaulaTestLevel2 = function() { 
 	var platforms;
-	var player;
 	var cursors;
 };
 PaulaTestLevel2.prototype = { 
@@ -9,15 +8,15 @@ PaulaTestLevel2.prototype = {
 	init: function(playerX, playerY, leftKeyIsDown, rightKeyIsDown, playerVelocity) {
 
 		player = game.add.sprite(playerX, playerY, 'player');
-		// if (leftKeyIsDown) {
-		// 	leftKey.isDown = true;
-		// 	leftKey.isUp = false;
-		// }
-		// if (rightKeyIsDown) {
-		// 	rightKey.isUp = false;
-		// 	rightKey.isDown = true; 
-		// }
-		
+		if (leftKeyIsDown) {
+			leftKey.isDown = true;
+			leftKey.isUp = false;
+		}
+		if (rightKeyIsDown) {
+			rightKey.isUp = false;
+			rightKey.isDown = true; 
+		}
+
 	   	game.physics.arcade.enable(player) //enable physics on player
 	   	player.body.velocity = playerVelocity;
 	},
@@ -60,6 +59,9 @@ PaulaTestLevel2.prototype = {
     },
 
     update: function() {
+    	if(game.input.keyboard.justPressed(Phaser.Keyboard.E))
+    		switchStates('PaulaTestLevel', player.position.x, player.position.y, leftKey.isDown,
+    			rightKey.isDown, player.body.velocity, null);
 
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             game.state.start('GameOver');

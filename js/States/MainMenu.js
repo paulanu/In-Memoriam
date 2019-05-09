@@ -6,8 +6,10 @@ MainMenu.prototype = {
 		Text.anchor.set(0.5);
 	},
 	update: function() {
+
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
-			game.state.start('PaulaTestLevel');
+    		switchStates('PaulaTestLevel', 32, game.world.height - 150, false,
+    			false, new Phaser.Point(0,0), null);
 		}
 	}
 }

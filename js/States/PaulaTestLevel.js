@@ -1,18 +1,35 @@
+
 // play state
 var PaulaTestLevel = function() { 
 	var platforms;
-	var player;
 	var cursors;
 	var jumpKey;
 	var leftKey;
+	var player;
 	var rightKey;
 };
 PaulaTestLevel.prototype = { 
 
+	init: function(playerX, playerY, leftKeyIsDown, rightKeyIsDown, playerVelocity) {
+		if (playerX != null) {
+			player = game.add.sprite(playerX, playerY, 'player');
+			if (leftKeyIsDown) {
+				leftKey.isDown = true;
+				leftKey.isUp = false;
+			}
+			if (rightKeyIsDown) {
+				rightKey.isUp = false;
+				rightKey.isDown = true; 
+			}
+			
+		   	game.physics.arcade.enable(player) //enable physics on player
+		   	player.body.velocity = playerVelocity;
+		   	console.log(player.body.velocity);
+		}
+	},
+
 	preload: function() {
 	    //load assets from the appropriate folder
-		game.load.image('platform', '../../assets/img/temp/platform.png');
-		game.load.image('player', '../../assets/img/temp/player.png');
 		jumpKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
 		leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
@@ -38,13 +55,16 @@ PaulaTestLevel.prototype = {
 	    platform = new Platform(game, 500, 200, 'platform', 0);
 	    platforms.add(platform); 
 
+	    console.log(player);
         //---TEMPORARY PLAYER FOR TESTING---//
-	    player = game.add.sprite(32, game.world.height - 150, 'player'); 
-	    game.physics.arcade.enable(player) //enable physics on player
+    	// player = game.add.sprite(32, game.world.height - 150, 'player'); 
+   		// game.physics.arcade.enable(player); //enable physics on player
 	    
 	    //player physics properties
 	    player.body.gravity.y = 800; 
-	    player.body.collideWorldBounds = true; 
+	    player.body.collideWorldBounds = true;
+	    console.log(player.body);
+	    console.log(player); 
 
 	    //controls
 	    cursors = game.input.keyboard.createCursorKeys(); 
@@ -63,25 +83,28 @@ PaulaTestLevel.prototype = {
 
         game.physics.arcade.collide(player, platforms);
 
+        if (leftKey.isUp && rightKey.isUp) {
+        	leftKey.isDown = false;
+        	rightKey.isDown = false;
+        }
+
         //-----------TEMPORARY CONTROLS---------------------//
     
-	    //reset player velocity 
-	    player.body.velocity.x = 0; 
-	    
 	    //move left
-	    if (cursors.left.isDown)
+	    if (leftKey.isDown)
 	    {
 	        player.body.velocity.x = -150;
+	        console.log(player.body.velocity.x);
 	    }
 
 	    //move right
-	    else if (cursors.right.isDown)
+	    else if (rightKey.isDown)
 	    {
 	        player.body.velocity.x = 150;
 	    }
 	    
 	    //jump if player is touching the ground
-	    if (cursors.up.isDown && player.body.touching.down)
+	    if (jumpKey.isDown && player.body.touching.down)
 	    {
 	        player.body.velocity.y = -500; 
 	    }
