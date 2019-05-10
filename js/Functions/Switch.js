@@ -1,14 +1,18 @@
 //put this in an level's update() function
-function switchStates(switchToLevelName, playerX, playerY, leftKeyIsDown,
-		rightKeyIsDown, playerVelocity, objectListToTransfer) {
+
+//switchToLevelName: The level you are going to switch to
+//playerX / playerY: the player's position
+//leftKeyIsDown: is the left key being pressed
+//rightKeyIsDown: is the right key being pressed
+//playervelocity: it is what it says
+//objectListToTransfer: if Objects have been moved, input their x / y here. 
+function switchStates(switchToLevelName, objectListToTransfer) {
 	//(state, clear all objects, clear cache, extra parameters)
-	game.state.start(switchToLevelName, true, false, playerX, playerY, 
-		leftKeyIsDown, rightKeyIsDown, playerVelocity);
+	game.camera.fade(0x000000, 200, false);
+	game.camera.onFadeComplete.add(function() {
+		game.state.start(switchToLevelName, true, false, player.position.x, player.position.y,
+		leftKey.isDown, rightKey.isDown, player.body.velocity);
+	}, this);
 
 }
 
-//put this in a level's init() function
-//var that holds player, x pos of player, y pos, sprite key
-function loadObjects(player, playerX, playerY, playerVelocity, playerKey) {
-	return game.add.sprite(playerX, playerY, playerKey);
-}

@@ -6,8 +6,20 @@ var PaulaTestLevel2 = function() {
 PaulaTestLevel2.prototype = { 
 
 	init: function(playerX, playerY, leftKeyIsDown, rightKeyIsDown, playerVelocity) {
+		//--------HAVE THIS IN EVERY LEVEL----------
+		//edge case checks
+		if (playerX < 0) playerX = 0;
+		if (playerX > game.world.width) playerX = game.world.width - 64; //account for player
+		if (playerY < 0) playerY = 0; //account for ground
+		if (playerY > game.world.height) playerY = game.world.height - 64;
 
 		player = game.add.sprite(playerX, playerY, 'player');
+
+		//enable physics on player
+	   	game.physics.arcade.enable(player) 
+	   	player.body.velocity = playerVelocity;
+
+		//below are for making a key press persistent across states
 		if (leftKeyIsDown) {
 			leftKey.isDown = true;
 			leftKey.isUp = false;
@@ -16,19 +28,11 @@ PaulaTestLevel2.prototype = {
 			rightKey.isUp = false;
 			rightKey.isDown = true; 
 		}
-
-	   	game.physics.arcade.enable(player) //enable physics on player
-	   	player.body.velocity = playerVelocity;
-	},
-
-	preload: function() {
-	    //load assets from the appropriate folder
-		game.load.image('platform2', '../../assets/img/temp/platform2.png');
+		//-----------------------------------------
 	},
 
     create: function() {
         game.stage.backgroundColor = "#F10700";
-
 
 	    //start the physics system
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -45,21 +49,15 @@ PaulaTestLevel2.prototype = {
 	    platform = new Platform(game, 500, 200, 'platform2', 0);
 	    platforms.add(platform); 
 
-        //---TEMPORARY PLAYER FOR TESTING---//
-	    // player = game.add.sprite(32, game.world.height - 150, 'player'); 
-	    
 	    //player physics properties
 	    player.body.gravity.y = 800; 
 	    player.body.collideWorldBounds = true; 
-
-	    //controls
-	    cursors = game.input.keyboard.createCursorKeys(); 
 	    //---------------------------------//
 
     },
 
     update: function() {
-    	if(game.input.keyboard.justPressed(Phaser.Keyboard.E))
+    	if(game.input.keyboard.justPressed(Phaser.Keyboard.SHIFT))
     		switchStates('PaulaTestLevel', player.position.x, player.position.y, leftKey.isDown,
     			rightKey.isDown, player.body.velocity, null);
 
@@ -69,13 +67,12 @@ PaulaTestLevel2.prototype = {
 
         game.physics.arcade.collide(player, platforms);
 
+        //-----------TEMPORARY CONTROLS---------------------//
         if (leftKey.isUp && rightKey.isUp) {
         	player.body.velocity.x = 0; 
         	leftKey.isDown = false;
         	rightKey.isDown = false;
         }
-
-        //-----------TEMPORARY CONTROLS---------------------//
     
 	    //move left
 	    if (leftKey.isDown)
@@ -94,7 +91,6 @@ PaulaTestLevel2.prototype = {
 	    {
 	        player.body.velocity.y = -500; 
 	    }
-
 	    //------------------------------------------------//
     }
 }

@@ -8,7 +8,7 @@ MainMenu.prototype = {
 	update: function() {
 
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
-    		switchStates('PaulaTestLevel', 32, game.world.height - 150, false,
+    		game.state.start('PaulaTestLevel', true, false, 32, game.world.height - 150, false,
     			false, new Phaser.Point(0,0), null);
 		}
 	}
