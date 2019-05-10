@@ -16,3 +16,23 @@ function switchStates(switchToLevelName, objectListToTransfer) {
 
 }
 
+var fadeOutUntilComplete = false; 
+
+function enterMemoryOrPresent(switchToLevelName) {
+	if (switchKey.isDown && !fadeOutUntilComplete) {
+		fadeInRect.alpha += .01;
+
+		if (fadeInRect.alpha >= 1) {
+			fadeOutUntilComplete = true; 
+			game.state.start(switchToLevelName, true, false, player.position.x, player.position.y,
+				leftKey.isDown, rightKey.isDown, player.body.velocity);
+		}
+	}
+	else
+		fadeInRect.alpha = game.math.max(fadeInRect.alpha - .05, 0);
+
+	if (fadeInRect.alpha == 0)
+		fadeOutUntilComplete = false; 
+
+}
+

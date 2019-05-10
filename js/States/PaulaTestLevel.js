@@ -5,6 +5,9 @@ var PaulaTestLevel = function() {
 
 	//the player
 	var player;
+
+	//the fade in rect
+	var fadeInRect;
 };
 PaulaTestLevel.prototype = { 
 
@@ -57,13 +60,14 @@ PaulaTestLevel.prototype = {
 	    player.body.gravity.y = 800; 
 	    player.body.collideWorldBounds = true;
 
+	    //create fade in rect
+	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
+
     },
 
     update: function() {
-    	if(game.input.keyboard.justPressed(Phaser.Keyboard.SHIFT)) {
-    		switchStates('PaulaTestLevel2', player.position.x, player.position.y, leftKey.isDown,
-    			rightKey.isDown, player.body.velocity, null);
-    	}
+
+    	enterMemoryOrPresent('PaulaTestLevel2');
 
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             game.state.start('GameOver');
