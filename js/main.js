@@ -3,6 +3,7 @@
 // global variables
 var game;
 var style = {font: 'Helvetica', fontSize: '24px', fill: '#fff'};
+var player;
 
 // wait for brower
 window.onload = function() {

@@ -1,102 +1,109 @@
 // play state
 var PaulaTestLevel2 = function() { 
-	var platforms;
-	var cursors;
+	//platforms group
+	var platforms; 
+
+	//the fade in rect
+	var fadeInRect;
 };
 PaulaTestLevel2.prototype = { 
 
-	init: function(playerX, playerY, leftKeyIsDown, rightKeyIsDown, playerVelocity) {
+	init: function(playerX, playerY, facing) {
 		//--------HAVE THIS IN EVERY LEVEL----------
-		//edge case checks
-		if (playerX < 0) playerX = 0;
-		if (playerX > game.world.width) playerX = game.world.width - 64; //account for player
-		if (playerY < 0) playerY = 0; //account for ground
-		if (playerY > game.world.height) playerY = game.world.height - 64;
-
-		player = game.add.sprite(playerX, playerY, 'player_stand');
-		var player_stand = player.animations.add('player_stand');
-		var walk_right = player.animations.add('player_walk_right');
-		var walk_left = player.animations.add('player_walk_left');
-		var player_jump = player.animations.add('player_jump');
-
-		//enable physics on player
-	   	game.physics.arcade.enable(player) 
-	   	player.body.velocity = playerVelocity;
-
-		//below are for making a key press persistent across states
-		if (leftKeyIsDown) {
-			leftKey.isDown = true;
-			leftKey.isUp = false;
-			player.animations.play('player_walk_left');
-		}
-		if (rightKeyIsDown) {
-			rightKey.isUp = false;
-			rightKey.isDown = true;
-			player.animations.play('player_walk_right');
-		}
+		this.playerX = playerX;
+		this.playerY = playerY;
+		this.facing = facing;
 		//-----------------------------------------
 	},
 
     create: function() {
-        game.stage.backgroundColor = "#F10700";
-        var bg =  game.add.image(0, 0, 'stage1_bg_bw');
-
-	    //start the physics system
+       	// start the physics system
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        platforms = game.add.group(); 
+        // add bg
+		game.add.sprite(0, 0, 'stage1_bg_bw');
+
+	 	// create platforms group
+        platforms = game.add.group();
+        platforms.enableBody = true; 
     
-	    //create the ground and scale it so it fills the bottom
-	    var ground = new Platform(game, 0, game.world.height - 76, 'grass_ground_bw');
-	    platforms.add(ground); 
+	    //create the ground
+	    var ground = platforms.create(0, game.world.height - 76, 'grass_ground_bw');
+		ground.body.immovable = true; 
 
-	    //create some ledges
-	    var platform = new Platform(game, 0, 350, 'grass_platform_bw', 0);
-	    platforms.add(platform); 
+	    //create ledge
+	  	var ledge = platforms.create(300, 250, 'grass_platform_bw');
+		ledge.body.immovable = true;
 
-	    //player physics properties
-	    player.body.gravity.y = 800; 
-	    player.body.collideWorldBounds = true; 
-	    //---------------------------------//
+		//player physics properties
+		player = game.add.sprite(this.playerX, this.playerY, 'player_animation');
+		player.anchor.x = 0.5;
+		player.scale.x = this.facing;
+		game.physics.arcade.enable(player);
+		player.body.gravity.y = 300;
+		player.body.collideWorldBounds = true;
+		player.animations.add('stand', [8], 6, true);
+		player.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
+		player.animations.add('jump', [9], 12, true);
 
 	    //create fade in rect
 	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
 
+	    // play standing animation
+	    player.animations.play('stand');
+
     },
 
     update: function() {
+    	// switch to sepia world
     	enterMemoryOrPresent('PaulaTestLevel');
 
+    	// space to go to GameOver state
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             game.state.start('GameOver');
         }
 
+        // collisions
         game.physics.arcade.collide(player, platforms);
 
-        //-----------TEMPORARY CONTROLS---------------------//
-        if (leftKey.isUp && rightKey.isUp) {
-        	player.body.velocity.x = 0; 
-        	leftKey.isDown = false;
-        	rightKey.isDown = false;
-        }
-    
-	    //move left
-	    if (leftKey.isDown)
-	    {
-	        player.body.velocity.x = -150;
-	    }
+        // set player variables that need to be passed
+        this.playerX = player.x;
+        this.playerY = player.y;
+        this.facing = player.scale.x;
 
-	    //move right
-	    else if (rightKey.isDown)
+        //-----------TEMPORARY CONTROLS---------------------//
+        // set player velocity
+	    player.body.velocity.x = 0;
+
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) // move left
 	    {
-	        player.body.velocity.x = 150;
+	        player.body.velocity.x = -100;
+	        console.log(player.body.velocity.x);
+	        player.animations.play('walk');
+	        player.scale.x = -1;
+	    }
+	 	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) // move right
+	    {
+	        player.body.velocity.x = 100;
+	       	player.animations.play('walk');
+	       	player.scale.x = 1;
+	    }
+	    else
+	    {
+	    	player.animations.play('stand'); // stand
 	    }
 	    
 	    //jump if player is touching the ground
-	    if (jumpKey.isDown && player.body.touching.down)
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && player.body.touching.down) // jump if player is touching the ground
 	    {
-	        player.body.velocity.y = -500; 
+	        player.body.velocity.y =  -200;
+		}
+
+	    if (!player.body.touching.down) // player jump animation
+	    {
+	    	player.animations.play('jump');
 	    }
+
 	    //------------------------------------------------//
     }
 }
