@@ -1,4 +1,5 @@
-
+var ground;
+var ledge;
 var PaulaTestLevel = function() { 
 	// platforms group
 	var platforms;
@@ -21,30 +22,36 @@ PaulaTestLevel.prototype = {
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	    // add bg
-		game.add.sprite(0, 0, 'stage1_bg_sepia');
-
-	    // create platforms group
-        platforms = game.add.group();
-        platforms.enableBody = true;
-    
-	    // create the ground
-	    var ground = platforms.create(0, game.world.height - 76, 'grass_ground_sepia');
-		ground.body.immovable = true; 
-
-	    // create ledge
-	  	var ledge = platforms.create(300, 250, 'grass_platform_sepia');
-		ledge.body.immovable = true;
+		var background = game.add.sprite(0, 0, 'stage1_bg_sepia');
+		background.scale.setTo(1.25, 1.25);
 
 		// player physics properties
 		player = game.add.sprite(this.playerX, this.playerY, 'player_animation');
 		player.anchor.x = 0.5;
 		player.scale.x = this.facing;
 		game.physics.arcade.enable(player);
-		player.body.gravity.y = 300;
+		player.body.gravity.y = 600;
 		player.body.collideWorldBounds = true;
 		player.animations.add('stand', [8], 6, true);
 		player.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
 		player.animations.add('jump', [9], 12, true);
+				console.log(player.body.width + " " + player.body.height);
+		player.body.setSize(45, 266, 65, 0);
+						console.log(player.body.width + " " + player.body.height);
+
+	    // create platforms group
+        platforms = game.add.group();
+        platforms.enableBody = true;
+    
+	    // create the ground
+	    ground = platforms.create(0, game.world.height - 76, 'grass_ground_sepia');
+		ground.body.immovable = true; 
+		ground.body.setSize(ground.body.width, ground.body.height - 10, 0, 50);
+
+	    // create ledge
+	  	ledge = platforms.create(300, 350, 'grass_platform_sepia');
+		ledge.body.immovable = true;
+		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
 
 	    // create fade in rect
 	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
@@ -53,6 +60,14 @@ PaulaTestLevel.prototype = {
 	    player.animations.play('stand');
 
     },
+
+	// render: function() {
+
+	//     game.debug.body(ground);
+	//     game.debug.body(ledge);
+	//     game.debug.body(player);
+
+	// },
 
     update: function() {
     	// switch to bw world
