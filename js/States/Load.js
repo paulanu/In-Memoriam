@@ -21,6 +21,6 @@ Load.prototype= {
     },
     create: function() {
         // go to MainMenu
-        game.state.start('SandyTestLevel');
+        game.state.start('MainMenu');
     }
 }
