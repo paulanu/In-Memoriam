@@ -1,4 +1,5 @@
 // play state
+var ground; var ledge; var tree;
 var PaulaTestLevel2 = function() { 
 	//platforms group
 	var platforms; 
@@ -21,19 +22,13 @@ PaulaTestLevel2.prototype = {
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // add bg
-		game.add.sprite(0, 0, 'stage1_bg_bw');
+		var background = game.add.sprite(0, 0, 'stage1_bg_bw');
 
-	 	// create platforms group
-        platforms = game.add.group();
-        platforms.enableBody = true; 
-    
-	    //create the ground
-	    var ground = platforms.create(0, game.world.height - 76, 'grass_ground_bw');
-		ground.body.immovable = true; 
-
-	    //create ledge
-	  	var ledge = platforms.create(300, 250, 'grass_platform_bw');
-		ledge.body.immovable = true;
+ 		//add tree
+		tree = game.add.sprite(250, 0, 'stage1_tree_bw');
+		game.physics.arcade.enable(tree);
+		tree.body.immovable = true;
+		tree.body.setSize(90, 75, 5, 260);
 
 		//player physics properties
 		player = game.add.sprite(this.playerX, this.playerY, 'player_animation');
@@ -45,6 +40,27 @@ PaulaTestLevel2.prototype = {
 		player.animations.add('stand', [8], 6, true);
 		player.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
 		player.animations.add('jump', [9], 12, true);
+		player.body.setSize(45, 170, 65, 96);
+
+ 	 	// create platforms group
+        platforms = game.add.group();
+        platforms.enableBody = true; 
+
+	    //create the ground
+	    ground = platforms.create(0, game.world.height - 76, 'grass_ground_bw');
+		ground.body.immovable = true; 
+		ground.body.setSize(ground.body.width, ground.body.height - 10, 0, 50);
+
+		//this is just to fill in the gap btwn the ledge and the ground
+	  	ledge = platforms.create(300, 250, 'grass_platform_sepia');
+		ledge.body.immovable = true;
+		ledge.angle = 5;
+		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
+
+	    //create ledge
+	  	ledge = platforms.create(300, 150, 'grass_platform_bw');
+		ledge.body.immovable = true;
+		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
 
 	    //create fade in rect
 	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
@@ -53,6 +69,16 @@ PaulaTestLevel2.prototype = {
 	    player.animations.play('stand');
 
     },
+
+	render: function() {
+
+	    game.debug.body(ground);
+	    game.debug.body(ledge);
+	    game.debug.body(player);
+	    game.debug.body(tree);
+
+	},
+
 
     update: function() {
     	// switch to sepia world
@@ -65,6 +91,7 @@ PaulaTestLevel2.prototype = {
 
         // collisions
         game.physics.arcade.collide(player, platforms);
+        game.physics.arcade.collide(player, tree);
 
         // set player variables that need to be passed
         this.playerX = player.x;
@@ -78,7 +105,6 @@ PaulaTestLevel2.prototype = {
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) // move left
 	    {
 	        player.body.velocity.x = -100;
-	        console.log(player.body.velocity.x);
 	        player.animations.play('walk');
 	        player.scale.x = -1;
 	    }
@@ -96,7 +122,7 @@ PaulaTestLevel2.prototype = {
 	    //jump if player is touching the ground
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && player.body.touching.down) // jump if player is touching the ground
 	    {
-	        player.body.velocity.y =  -200;
+	        player.body.velocity.y =  -350;
 		}
 
 	    if (!player.body.touching.down) // player jump animation
