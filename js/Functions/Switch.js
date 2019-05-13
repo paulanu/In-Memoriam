@@ -1,14 +1,30 @@
-//put this in an level's update() function
-function switchStates(switchToLevelName, playerX, playerY, leftKeyIsDown,
-		rightKeyIsDown, playerVelocity, objectListToTransfer) {
-	//(state, clear all objects, clear cache, extra parameters)
-	game.state.start(switchToLevelName, true, false, playerX, playerY, 
-		leftKeyIsDown, rightKeyIsDown, playerVelocity);
+//put this function in an level's update() function
+
+//switchToLevelName: The level you are going to switch to
+//objectListToTransfer: if Objects have been moved, input their x / y here. 
+function switchStates(switchToLevelName, objectListToTransfer) {
+	game.camera.fade(0x000000, 200, false);
+	game.camera.onFadeComplete.add(function() {
+		game.state.start(switchToLevelName, true, false, player.position.x, player.position.y, player.scale.x);
+	}, this);
 
 }
 
-//put this in a level's init() function
-//var that holds player, x pos of player, y pos, sprite key
-function loadObjects(player, playerX, playerY, playerVelocity, playerKey) {
-	return game.add.sprite(playerX, playerY, playerKey);
+var fadeOutUntilComplete = false; 
+
+function enterMemoryOrPresent(switchToLevelName) {
+	if (switchKey.isDown && !fadeOutUntilComplete) {
+		fadeInRect.alpha += .01;
+
+		if (fadeInRect.alpha >= 1) {
+			fadeOutUntilComplete = true; 
+			game.state.start(switchToLevelName, true, false, player.position.x, player.position.y, player.scale.x);
+		}
+	}
+	else
+		fadeInRect.alpha = game.math.max(fadeInRect.alpha - .05, 0);
+
+	if (fadeInRect.alpha == 0)
+		fadeOutUntilComplete = false;
 }
+
