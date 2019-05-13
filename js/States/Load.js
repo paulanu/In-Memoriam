@@ -5,7 +5,6 @@ Load.prototype= {
         // load assets
         console.log('LOAD');
 		game.load.spritesheet('player_animation', 'assets/img/player_animation.png', 170, 266);
-
         game.load.image('stage1_bg_sepia', 'assets/img/stage1_bg_sepia.png');
         game.load.image('stage1_bg_bw', 'assets/img/stage1_bg_bw.png');
         game.load.image('grass_ground_sepia', 'assets/img/stage1_grass_ground_sepia.png');

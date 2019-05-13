@@ -19,6 +19,7 @@ window.onload = function() {
     //test states
     game.state.add('PaulaTestLevel', PaulaTestLevel);
     game.state.add('PaulaTestLevel2', PaulaTestLevel2);
+    game.state.add('SandyTestLevel', SandyTestLevel);
 
     //start initial state
     game.state.start('Load');
