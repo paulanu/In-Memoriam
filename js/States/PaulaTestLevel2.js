@@ -52,7 +52,7 @@ PaulaTestLevel2.prototype = {
 		ground.body.setSize(ground.body.width, ground.body.height - 10, 0, 50);
 
 		//this is just to fill in the gap btwn the ledge and the ground
-	  	ledge = platforms.create(300, 250, 'grass_platform_sepia');
+	  	ledge = platforms.create(300, 250, 'grass_platform_bw');
 		ledge.body.immovable = true;
 		ledge.angle = 5;
 		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
@@ -70,14 +70,14 @@ PaulaTestLevel2.prototype = {
 
     },
 
-	render: function() {
+	// render: function() {
 
-	    game.debug.body(ground);
-	    game.debug.body(ledge);
-	    game.debug.body(player);
-	    game.debug.body(tree);
+	//     game.debug.body(ground);
+	//     game.debug.body(ledge);
+	//     game.debug.body(player);
+	//     game.debug.body(tree);
 
-	},
+	// },
 
 
     update: function() {
