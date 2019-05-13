@@ -14,6 +14,9 @@ MainMenu.prototype = {
 		Text = game.add.text(game.width/2, 250, 'exit the right side of the level', style);
 	    Text.anchor.set(0.5);
 
+	    Text = game.add.text(game.width/2, 300, 'Press SPACE to start', style);
+	    Text.anchor.set(0.5);
+
 	},
 	update: function() {
 		// start Play State
