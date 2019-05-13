@@ -23,7 +23,9 @@ PaulaTestLevel.prototype = {
 
 	    // add bg
 		var background = game.add.sprite(0, 0, 'stage1_bg_sepia');
-		background.scale.setTo(1.25, 1.25);
+
+		//add tree
+		var tree = game.add.sprite(250, 0, 'stage1_tree_sepia');
 
 		// player physics properties
 		player = game.add.sprite(this.playerX, this.playerY, 'player_animation');
@@ -37,19 +39,24 @@ PaulaTestLevel.prototype = {
 		player.animations.add('jump', [9], 12, true);
 				console.log(player.body.width + " " + player.body.height);
 		player.body.setSize(45, 266, 65, 0);
-						console.log(player.body.width + " " + player.body.height);
-
+    
 	    // create platforms group
         platforms = game.add.group();
         platforms.enableBody = true;
-    
+
 	    // create the ground
 	    ground = platforms.create(0, game.world.height - 76, 'grass_ground_sepia');
 		ground.body.immovable = true; 
 		ground.body.setSize(ground.body.width, ground.body.height - 10, 0, 50);
 
+		//this is just to fill in the gap btwn the ledge and the ground
+	  	ledge = platforms.create(300, 250, 'grass_platform_sepia');
+		ledge.body.immovable = true;
+		ledge.angle = 5;
+		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
+
 	    // create ledge
-	  	ledge = platforms.create(300, 350, 'grass_platform_sepia');
+	  	ledge = platforms.create(300, 150, 'grass_platform_sepia');
 		ledge.body.immovable = true;
 		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
 
@@ -93,7 +100,6 @@ PaulaTestLevel.prototype = {
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) // move left
 	    {
 	        player.body.velocity.x = -100;
-	        console.log(player.body.velocity.x);
 	        player.animations.play('walk');
 	        player.scale.x = -1;
 	    }
