@@ -13,7 +13,11 @@ PaulaTestLevel2.prototype = {
 		if (playerY < 0) playerY = 0; //account for ground
 		if (playerY > game.world.height) playerY = game.world.height - 64;
 
-		player = game.add.sprite(playerX, playerY, 'player');
+		player = game.add.sprite(playerX, playerY, 'player_stand');
+		var player_stand = player.animations.add('player_stand');
+		var walk_right = player.animations.add('player_walk_right');
+		var walk_left = player.animations.add('player_walk_left');
+		var player_jump = player.animations.add('player_jump');
 
 		//enable physics on player
 	   	game.physics.arcade.enable(player) 
@@ -23,16 +27,19 @@ PaulaTestLevel2.prototype = {
 		if (leftKeyIsDown) {
 			leftKey.isDown = true;
 			leftKey.isUp = false;
+			player.animations.play('player_walk_left');
 		}
 		if (rightKeyIsDown) {
 			rightKey.isUp = false;
-			rightKey.isDown = true; 
+			rightKey.isDown = true;
+			player.animations.play('player_walk_right');
 		}
 		//-----------------------------------------
 	},
 
     create: function() {
         game.stage.backgroundColor = "#F10700";
+        var bg =  game.add.image(0, 0, 'stage1_bg_bw');
 
 	    //start the physics system
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -40,13 +47,11 @@ PaulaTestLevel2.prototype = {
         platforms = game.add.group(); 
     
 	    //create the ground and scale it so it fills the bottom
-	    var ground = new Platform(game, 0, game.world.height - 25, 'platform2', 0, game.world.width);
+	    var ground = new Platform(game, 0, game.world.height - 76, 'grass_ground_bw');
 	    platforms.add(ground); 
 
 	    //create some ledges
-	    var platform = new Platform(game, 350, 350, 'platform2', 0);
-	    platforms.add(platform); 
-	    platform = new Platform(game, 500, 200, 'platform2', 0);
+	    var platform = new Platform(game, 0, 350, 'grass_platform_bw', 0);
 	    platforms.add(platform); 
 
 	    //player physics properties

@@ -19,7 +19,11 @@ PaulaTestLevel.prototype = {
 		if (playerY < 0) playerY = 0; //account for ground
 		if (playerY > game.world.height) playerY = game.world.height - 64;
 
-		player = game.add.sprite(playerX, playerY, 'player');
+		player = game.add.sprite(playerX, playerY, 'player_stand');
+		var player_stand = player.animations.add('player_stand');
+		var walk_right = player.animations.add('player_walk_right');
+		var walk_left = player.animations.add('player_walk_left');
+		var player_jump = player.animations.add('player_jump');
 
 		//enable physics on player
 	   	game.physics.arcade.enable(player) 
@@ -29,16 +33,19 @@ PaulaTestLevel.prototype = {
 		if (leftKeyIsDown) {
 			leftKey.isDown = true;
 			leftKey.isUp = false;
+			player.animations.play('player_walk_left');
 		}
 		if (rightKeyIsDown) {
 			rightKey.isUp = false;
-			rightKey.isDown = true; 
+			rightKey.isDown = true;
+			player.animations.play('player_walk_right');
 		}
 		//-----------------------------------------
 	},
 
     create: function() {
         game.stage.backgroundColor = "#2300d3";
+        var bg =  game.add.image(0, 0, 'stage1_bg_sepia');
 
 	    //start the physics system
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -47,13 +54,11 @@ PaulaTestLevel.prototype = {
         platforms = game.add.group(); 
     
 	    //create the ground and scale it so it fills the bottom
-	    var ground = new Platform(game, 0, game.world.height - 25, 'platform', 0, game.world.width);
+	    var ground = new Platform(game, 0, game.world.height - 76, 'grass_ground_sepia');
 	    platforms.add(ground); 
 
 	    //create some ledges
-	    var platform = new Platform(game, 350, 350, 'platform', 0);
-	    platforms.add(platform); 
-	    platform = new Platform(game, 500, 200, 'platform', 0);
+	    var platform = new Platform(game, 0, 350, 'grass_platform_sepia', 0);
 	    platforms.add(platform); 
    
 	    //player physics properties
@@ -83,6 +88,7 @@ PaulaTestLevel.prototype = {
         	leftKey.isDown = false;
         	rightKey.isDown = false;
         	player.body.velocity.x = 0;
+        	player.animations.play('player_stand');
         }    
 
 	    //move left
@@ -90,18 +96,21 @@ PaulaTestLevel.prototype = {
 	    {
 	        player.body.velocity.x = -150;
 	        console.log(player.body.velocity.x);
+	        player.animations.play('player_walk_left');
 	    }
 
 	    //move right
 	    else if (rightKey.isDown)
 	    {
 	        player.body.velocity.x = 150;
+	        player.animations.play('player_walk_right');
 	    }
 	    
 	    //jump if player is touching the ground
 	    if (jumpKey.isDown && player.body.touching.down)
 	    {
-	        player.body.velocity.y = -500; 
+	        player.body.velocity.y = -500;
+	        player.animations.play('player_jump');
 	    }
 
 	    //------------------------------------------------//
