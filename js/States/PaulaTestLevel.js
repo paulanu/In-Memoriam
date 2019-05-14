@@ -37,7 +37,7 @@ PaulaTestLevel.prototype = {
 		player.scale.x = this.facing;
 		game.physics.arcade.enable(player);
 		player.body.gravity.y = 600;
-		player.body.collideWorldBounds = true;
+		// player.body.collideWorldBounds = true;
 		player.animations.add('stand', [8], 6, true);
 		player.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
 		player.animations.add('jump', [9], 12, true);
@@ -96,6 +96,14 @@ PaulaTestLevel.prototype = {
 	// },
 
     update: function() {
+    	//don't exit left side of screen
+ 		if (player.position.x < 0)
+ 			player.position.x = 0;
+
+ 		//don't exit left side of screen
+ 		if (player.position.x > game.world.width)
+ 			game.state.start('End');
+
     	// switch to bw world
     	enterMemoryOrPresent('PaulaTestLevel2');
 <<<<<<< HEAD

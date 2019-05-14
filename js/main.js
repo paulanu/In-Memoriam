@@ -15,6 +15,7 @@ window.onload = function() {
     game.state.add('MainMenu', MainMenu);
     game.state.add('Play', Play);
     game.state.add('GameOver', GameOver);
+    game.state.add('End', End);
 
     //test states
     game.state.add('PaulaTestLevel', PaulaTestLevel);
