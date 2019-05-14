@@ -35,7 +35,10 @@ PaulaTestLevel2.prototype = {
 		player.anchor.x = 0.5;
 		player.scale.x = this.facing;
 		game.physics.arcade.enable(player);
+<<<<<<< HEAD
 		player.body.bounce.y =0.10;
+=======
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 		player.body.gravity.y = 300;
 		player.body.collideWorldBounds = true;
 		player.animations.add('stand', [8], 6, true);
@@ -68,6 +71,7 @@ PaulaTestLevel2.prototype = {
 
 	    // play standing animation
 	    player.animations.play('stand');
+<<<<<<< HEAD
 
 	    rock = game.add.sprite(500, -100, 'rock_bw');
 	    rock.enableBody = true;
@@ -77,6 +81,8 @@ PaulaTestLevel2.prototype = {
 	    rock.body.gravity.y =100;
 	    rock.body.immovable = false;
 	    rock.body.collideWorldBounds = true;
+=======
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 
     },
 
@@ -86,7 +92,10 @@ PaulaTestLevel2.prototype = {
 	    game.debug.body(ledge);
 	    game.debug.body(player);
 	    game.debug.body(tree);
+<<<<<<< HEAD
 	    game.debug.body(rock);
+=======
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 
 	},
 
@@ -95,8 +104,11 @@ PaulaTestLevel2.prototype = {
     	// switch to sepia world
     	enterMemoryOrPresent('PaulaTestLevel');
 
+<<<<<<< HEAD
     	//rock.body.velocity.x =0;
 
+=======
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
     	// space to go to GameOver state
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             game.state.start('GameOver');
@@ -105,8 +117,11 @@ PaulaTestLevel2.prototype = {
         // collisions
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(player, tree);
+<<<<<<< HEAD
         game.physics.arcade.collide(rock, platforms);
 	    game.physics.arcade.collide(rock, player);
+=======
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 
         // set player variables that need to be passed
         this.playerX = player.x;
@@ -119,13 +134,21 @@ PaulaTestLevel2.prototype = {
 
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) // move left
 	    {
+<<<<<<< HEAD
 	        player.body.velocity.x = -150;
+=======
+	        player.body.velocity.x = -100;
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 	        player.animations.play('walk');
 	        player.scale.x = -1;
 	    }
 	 	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) // move right
 	    {
+<<<<<<< HEAD
 	        player.body.velocity.x = 150;
+=======
+	        player.body.velocity.x = 100;
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 	       	player.animations.play('walk');
 	       	player.scale.x = 1;
 	    }
@@ -136,12 +159,21 @@ PaulaTestLevel2.prototype = {
 	    
 	    //jump if player is touching the ground
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && player.body.touching.down) // jump if player is touching the ground
+<<<<<<< HEAD
 	    {
 	        player.body.velocity.y =  -350;
 		}
 
 	    if (!player.body.touching.down) // player jump animation
 	    {
+=======
+	    {
+	        player.body.velocity.y =  -350;
+		}
+
+	    if (!player.body.touching.down) // player jump animation
+	    {
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 	    	player.animations.play('jump');
 	    }
 

@@ -1,6 +1,9 @@
 var ground;
 var ledge;
+<<<<<<< HEAD
 var rock;
+=======
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 var PaulaTestLevel = function() { 
 	// platforms group
 	var platforms;
@@ -63,6 +66,7 @@ PaulaTestLevel.prototype = {
 
 	    // create fade in rect
 	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
+<<<<<<< HEAD
 
 	    // play standing animation
 	    player.animations.play('stand');
@@ -75,6 +79,11 @@ PaulaTestLevel.prototype = {
 	    //rock.body.gravity.y =1000;
 	   //rock.body.immovable = true;
 	    //rock.body.collideWorldBounds = true;
+=======
+
+	    // play standing animation
+	    player.animations.play('stand');
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 
     },
 
@@ -89,10 +98,14 @@ PaulaTestLevel.prototype = {
     update: function() {
     	// switch to bw world
     	enterMemoryOrPresent('PaulaTestLevel2');
+<<<<<<< HEAD
 
     	//rock.body.velocity.x =0;
 
 
+=======
+
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
     	// space to go to GameOver state
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             game.state.start('GameOver');
@@ -110,9 +123,12 @@ PaulaTestLevel.prototype = {
 	    // set player velocity
 	    player.body.velocity.x = 0;
 
+<<<<<<< HEAD
 	    game.physics.arcade.collide(rock, platforms);
 	    game.physics.arcade.collide(rock, player);
 
+=======
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) // move left
 	    {
 	        player.body.velocity.x = -100;
@@ -120,6 +136,7 @@ PaulaTestLevel.prototype = {
 	        player.scale.x = -1;
 	    }
 	 	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) // move right
+<<<<<<< HEAD
 	    {
 	        player.body.velocity.x = 100;
 	       	player.animations.play('walk');
@@ -127,16 +144,34 @@ PaulaTestLevel.prototype = {
 	    }
 	    else
 	    {
+=======
+	    {
+	        player.body.velocity.x = 100;
+	       	player.animations.play('walk');
+	       	player.scale.x = 1;
+	    }
+	    else
+	    {
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 	    	player.animations.play('stand'); // stand
 	    }
 	    
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && player.body.touching.down) // jump if player is touching the ground
+<<<<<<< HEAD
 	    {
 	        player.body.velocity.y =  -200;
 		}
 
 	    if (!player.body.touching.down) // player jump animation
 	    {
+=======
+	    {
+	        player.body.velocity.y =  -200;
+		}
+
+	    if (!player.body.touching.down) // player jump animation
+	    {
+>>>>>>> b1bd6c177807c025f6ca5106041ea58ee5df2306
 	    	player.animations.play('jump');
 	    }
 
