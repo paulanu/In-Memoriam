@@ -3,11 +3,12 @@
 // global variables
 var game;
 var style = {font: 'Helvetica', fontSize: '24px', fill: '#fff'};
+var player;
 
 // wait for brower
 window.onload = function() {
     // define game
-    game = new Phaser.Game(800, 600, Phaser.AUTO, 'ourGame');
+    game = new Phaser.Game(854, 480, Phaser.AUTO, 'ourGame');
 
     // define states
     game.state.add('Load', Load);

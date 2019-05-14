@@ -1,116 +1,145 @@
-
-// play state
+var ground;
+var ledge;
+var rock;
 var PaulaTestLevel = function() { 
+	// platforms group
 	var platforms;
-	var cursors;
-	var jumpKey;
-	var leftKey;
-	var player;
-	var rightKey;
+
+	// the fade in rect
+	var fadeInRect;
 };
 PaulaTestLevel.prototype = { 
 
-	init: function(playerX, playerY, leftKeyIsDown, rightKeyIsDown, playerVelocity) {
-		if (playerX != null) {
-			player = game.add.sprite(playerX, playerY, 'player');
-			if (leftKeyIsDown) {
-				leftKey.isDown = true;
-				leftKey.isUp = false;
-			}
-			if (rightKeyIsDown) {
-				rightKey.isUp = false;
-				rightKey.isDown = true; 
-			}
-			
-		   	game.physics.arcade.enable(player) //enable physics on player
-		   	player.body.velocity = playerVelocity;
-		   	console.log(player.body.velocity);
-		}
-	},
-
-	preload: function() {
-	    //load assets from the appropriate folder
-		jumpKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-		leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-		rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
+	init: function(playerX, playerY, facing) {
+		//--------HAVE THIS IN EVERY LEVEL----------
+		this.playerX = playerX;
+		this.playerY = playerY;
+		this.facing = facing;
+		//-----------------------------------------
 	},
 
     create: function() {
-        game.stage.backgroundColor = "#2300d3";
-
-
-	    //start the physics system
+	    // start the physics system
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        platforms = game.add.group(); 
+	    // add bg
+		var background = game.add.sprite(0, 0, 'stage1_bg_sepia');
+
+		//add tree
+		var tree = game.add.sprite(250, 0, 'stage1_tree_sepia');
+
+		// player physics properties
+		player = game.add.sprite(this.playerX, this.playerY, 'player_animation');
+		player.anchor.x = 0.5;
+		player.scale.x = this.facing;
+		game.physics.arcade.enable(player);
+		player.body.gravity.y = 600;
+		player.body.collideWorldBounds = true;
+		player.animations.add('stand', [8], 6, true);
+		player.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
+		player.animations.add('jump', [9], 12, true);
+				console.log(player.body.width + " " + player.body.height);
+		player.body.setSize(45, 266, 65, 0);
     
-	    //create the ground and scale it so it fills the bottom
-	    var ground = new Platform(game, 0, game.world.height - 25, 'platform', 0, game.world.width);
-	    platforms.add(ground); 
+	    // create platforms group
+        platforms = game.add.group();
+        platforms.enableBody = true;
 
-	    //create some ledges
-	    var platform = new Platform(game, 350, 350, 'platform', 0);
-	    platforms.add(platform); 
-	    platform = new Platform(game, 500, 200, 'platform', 0);
-	    platforms.add(platform); 
+	    // create the ground
+	    ground = platforms.create(0, game.world.height - 76, 'grass_ground_sepia');
+		ground.body.immovable = true; 
+		ground.body.setSize(ground.body.width, ground.body.height - 10, 0, 50);
 
-	    console.log(player);
-        //---TEMPORARY PLAYER FOR TESTING---//
-    	// player = game.add.sprite(32, game.world.height - 150, 'player'); 
-   		// game.physics.arcade.enable(player); //enable physics on player
-	    
-	    //player physics properties
-	    player.body.gravity.y = 800; 
-	    player.body.collideWorldBounds = true;
-	    console.log(player.body);
-	    console.log(player); 
+		//this is just to fill in the gap btwn the ledge and the ground
+	  	ledge = platforms.create(300, 250, 'grass_platform_sepia');
+		ledge.body.immovable = true;
+		ledge.angle = 5;
+		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
 
-	    //controls
-	    cursors = game.input.keyboard.createCursorKeys(); 
-	    //---------------------------------//
+	    // create ledge
+	  	ledge = platforms.create(300, 150, 'grass_platform_sepia');
+		ledge.body.immovable = true;
+		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
+
+	    // create fade in rect
+	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
+
+	    // play standing animation
+	    player.animations.play('stand');
+
+	    rock = game.add.sprite(500, 100, 'rock_sepia');
+	    rock.enableBody = true;
+	    //game.physics.arcade.enable(rock);
+	    //rock.body.bounce.y =0.2;
+
+	    //rock.body.gravity.y =1000;
+	   //rock.body.immovable = true;
+	    //rock.body.collideWorldBounds = true;
 
     },
 
-    update: function() {
-    	if(game.input.keyboard.justPressed(Phaser.Keyboard.E))
-    		switchStates('PaulaTestLevel2', player.position.x, player.position.y, leftKey.isDown,
-    			rightKey.isDown, player.body.velocity, null);
+	// render: function() {
 
+	//     game.debug.body(ground);
+	//     game.debug.body(ledge);
+	//     game.debug.body(player);
+
+	// },
+
+    update: function() {
+    	// switch to bw world
+    	enterMemoryOrPresent('PaulaTestLevel2');
+
+    	//rock.body.velocity.x =0;
+
+
+    	// space to go to GameOver state
         if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
             game.state.start('GameOver');
         }
 
+        // collisions
         game.physics.arcade.collide(player, platforms);
 
-        if (leftKey.isUp && rightKey.isUp) {
-        	leftKey.isDown = false;
-        	rightKey.isDown = false;
-        }
+        // set player variables that need to be passed
+        this.playerX = player.x;
+        this.playerY = player.y;
+        this.facing = player.scale.x;
 
         //-----------TEMPORARY CONTROLS---------------------//
-    
-	    //move left
-	    if (leftKey.isDown)
-	    {
-	        player.body.velocity.x = -150;
-	        console.log(player.body.velocity.x);
-	    }
+	    // set player velocity
+	    player.body.velocity.x = 0;
 
-	    //move right
-	    else if (rightKey.isDown)
+	    game.physics.arcade.collide(rock, platforms);
+	    game.physics.arcade.collide(rock, player);
+
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) // move left
 	    {
-	        player.body.velocity.x = 150;
+	        player.body.velocity.x = -100;
+	        player.animations.play('walk');
+	        player.scale.x = -1;
+	    }
+	 	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) // move right
+	    {
+	        player.body.velocity.x = 100;
+	       	player.animations.play('walk');
+	       	player.scale.x = 1;
+	    }
+	    else
+	    {
+	    	player.animations.play('stand'); // stand
 	    }
 	    
-	    //jump if player is touching the ground
-	    if (jumpKey.isDown && player.body.touching.down)
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && player.body.touching.down) // jump if player is touching the ground
 	    {
-	        player.body.velocity.y = -500; 
+	        player.body.velocity.y =  -200;
+		}
+
+	    if (!player.body.touching.down) // player jump animation
+	    {
+	    	player.animations.play('jump');
 	    }
 
 	    //------------------------------------------------//
-
-
     }
 }
