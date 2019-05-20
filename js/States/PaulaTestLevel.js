@@ -1,5 +1,7 @@
 var ground;
 var ledge;
+var rock;
+
 var PaulaTestLevel = function() { 
 	// platforms group
 	var platforms;
@@ -60,11 +62,21 @@ PaulaTestLevel.prototype = {
 		ledge.body.immovable = true;
 		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
 
+	    rock = game.add.sprite(500, 100, 'rock_sepia');
+	    rock.enableBody = true;
+
 	    // create fade in rect
 	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
 
 	    // play standing animation
 	    player.animations.play('stand');
+
+	    //game.physics.arcade.enable(rock);
+	    //rock.body.bounce.y =0.2;
+
+	    //rock.body.gravity.y =1000;
+	   //rock.body.immovable = true;
+	    //rock.body.collideWorldBounds = true;
 
     },
 
@@ -88,11 +100,6 @@ PaulaTestLevel.prototype = {
     	// switch to bw world
     	enterMemoryOrPresent('PaulaTestLevel2');
 
-    	// space to go to GameOver state
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
-            game.state.start('GameOver');
-        }
-
         // collisions
         game.physics.arcade.collide(player, platforms);
 
@@ -105,18 +112,23 @@ PaulaTestLevel.prototype = {
 	    // set player velocity
 	    player.body.velocity.x = 0;
 
+	    game.physics.arcade.collide(rock, platforms);
+	    game.physics.arcade.collide(rock, player);
+
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) // move left
 	    {
 	        player.body.velocity.x = -100;
 	        player.animations.play('walk');
 	        player.scale.x = -1;
 	    }
+
 	 	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) // move right
 	    {
 	        player.body.velocity.x = 100;
 	       	player.animations.play('walk');
 	       	player.scale.x = 1;
 	    }
+
 	    else
 	    {
 	    	player.animations.play('stand'); // stand
@@ -124,13 +136,15 @@ PaulaTestLevel.prototype = {
 	    
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && player.body.touching.down) // jump if player is touching the ground
 	    {
-	        player.body.velocity.y =  -200;
+	        player.body.velocity.y =  -450;
 		}
 
 	    if (!player.body.touching.down) // player jump animation
 	    {
 	    	player.animations.play('jump');
 	    }
+
+
 
 	    //------------------------------------------------//
     }

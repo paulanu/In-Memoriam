@@ -32,11 +32,12 @@ SandyTestLevel.prototype = {
 
 
         player.body.gravity.y = 800; 
-	    player.body.collideWorldBounds = true;
+	      player.body.collideWorldBounds = true;
+
 	    console.log(player.body);
 	    console.log(player);
 
-	    block = game.add.sprite(300, 100, 'block');
+	      block = game.add.sprite(300, 100, 'block');
         block.enableBody = true;
         game.physics.arcade.enable(block);
         block.body.bounce.y =0.2;

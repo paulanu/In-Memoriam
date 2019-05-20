@@ -10,11 +10,14 @@ MainMenu.prototype = {
 	 	
 	 	Text = game.add.text(game.width/2, 200, 'arrow keys to move', style);
 	    Text.anchor.set(0.5);
-
-		Text = game.add.text(game.width/2, 250, 'exit the right side of the level', style);
+	    
+	    Text = game.add.text(game.width/2, 250, 'hold s + arrow keys to move objects while in memories', style);
 	    Text.anchor.set(0.5);
 
-	    Text = game.add.text(game.width/2, 300, 'Press SPACE to start', style);
+		Text = game.add.text(game.width/2, 300, 'exit the right side of the level', style);
+	    Text.anchor.set(0.5);
+
+	    Text = game.add.text(game.width/2, 350, 'Press SPACE to start', style);
 	    Text.anchor.set(0.5);
 
 	},
