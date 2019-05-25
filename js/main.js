@@ -8,7 +8,7 @@ var player;
 // wait for brower
 window.onload = function() {
     // define game
-    game = new Phaser.Game(1920, 1080, Phaser.AUTO, 'ourGame');
+    game = new Phaser.Game(1280, 720, Phaser.AUTO, 'ourGame');
 
     // define states
     game.state.add('Load', Load);

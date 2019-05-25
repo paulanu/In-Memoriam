@@ -1,4 +1,4 @@
-function Player(game, x, y, key){
+function Player(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'player_animation');
 
     //physics
@@ -12,9 +12,8 @@ function Player(game, x, y, key){
     this.body.setSize(45, 266, 65, 0);
 
     //animations 
-    player.animations.add('stand', [8], 6, true);
-    player.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
-    player.animations.add('jump', [9], 12, true);
+    this.animations.add('stand', [8], 6, true);
+    this.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
 
 }
 
@@ -25,6 +24,7 @@ Player.prototype.update = function() {
 
     cursors = game.input.keyboard.createCursorKeys();//to make the player move by using keyboard
 
+    console.log("hahaha");
     //---------MOVEMENT----------------//
     player.body.velocity.x = 0;
     //block.body.velocity.x = 0;

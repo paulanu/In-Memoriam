@@ -1,7 +1,4 @@
-var ground;
-var ledge;
-var rock;
-
+var player; var grass;
 var DepressionLevel = function() { 
 	// platforms group
 	var platforms;
@@ -28,6 +25,29 @@ DepressionLevel.prototype = {
 		var backgroundTrees = game.add.sprite(0, 0, 'levelOneSprites', 'Night_BG_Trees');
 		var foreGroundTrees = game.add.sprite(0, 0, 'levelOneSprites', 'Night_FG_Trees');
 
+        var backgroundTrees = this.game.add.tileSprite(0, 0, game.world.width, game.world.height, 
+            'levelOneSprites', 'Night_BG_Trees'
+        );
+        var foregroundTrees = this.game.add.tileSprite(0, 0, game.world.width, game.world.height, 
+            'levelOneSprites', 'Night_FG_Trees'
+        );
+
+        //LEVEL ELEMENTS
+        var car = this.game.add.sprite(-100, game.world.height - 210, 'levelOneSprites', 'Night_Car');
+
+        var house = this.game.add.sprite(game.world.width - 393, 0, 'levelOneSprites', 'Night_House');
+
+        //PLAYER
+        player = new Player(game, 100, 100); 
+        game.add.existing(player);
+        console.log(player);
+
+        grass = this.game.add.tileSprite(0, game.world.height - 120, game.world.width, 120, 
+            'levelOneSprites', 'Night_Grass');
+    	game.physics.arcade.enable(grass);
+    	//grass.enableBody = true;
+		grass.body.immovable = true; 
+    	grass.body.setSize(grass.body.width, grass.body.height - 10, 0, 50);
 
 		// // player physics properties
 		// player = game.add.sprite(this.playerX, this.playerY, 'player_animation');
@@ -82,13 +102,16 @@ DepressionLevel.prototype = {
 
 	// render: function() {
 
-	//     game.debug.body(ground);
-	//     game.debug.body(ledge);
+	//     game.debug.body(grass);
 	//     game.debug.body(player);
 
 	// },
 
     update: function() {
+    	game.physics.arcade.collide(player, grass);
+    	   //      background.tilePosition.x -= 1;
+        // foreground.tilePosition.x -= 10;
+
     	//don't exit left side of screen
  	// 	if (player.position.x < 0)
  	// 		player.position.x = 0;
