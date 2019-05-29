@@ -25,8 +25,6 @@ DepressionLevel.prototype = {
 
 	    // BACKGROUND ART ELEMENTS
 		var background = game.add.sprite(0, 0, 'levelOneSprites', 'Night_BG');
-		var backgroundTrees = game.add.sprite(0, 0, 'levelOneSprites', 'Night_BG_Trees');
-		var foreGroundTrees = game.add.sprite(0, 0, 'levelOneSprites', 'Night_FG_Trees');
 
         var backgroundTrees = this.game.add.tileSprite(0, 0, game.world.width, game.world.height, 
             'levelOneSprites', 'Night_BG_Trees'
@@ -51,6 +49,8 @@ DepressionLevel.prototype = {
         //PLAYER
         player = new Player(game, 100, 100); 
         player.footsteps = game.add.audio('grass_footsteps');
+        player.parallaxForeground = foregroundTrees;
+    	player.parallaxBackground = backgroundTrees;
         game.add.existing(player);
 
         //grass

@@ -1,6 +1,11 @@
+parallaxForegroundSpeed = .05;
+parallaxBackgroundSpeed = .02;
 
 function Player(game, x, y){
     this.footsteps; 
+    this.parallaxForeground;
+    this.parallaxBackground; 
+
 
     Phaser.Sprite.call(this, game, x, y, 'player_animation');
 
@@ -28,24 +33,45 @@ Player.prototype.update = function() {
 
     //---------MOVEMENT----------------//
     player.body.velocity.x = 0;
-    //block.body.velocity.x = 0;
+
     if (cursors.left.isDown){//move to left
         player.body.velocity.x = -150;
+        
+        //animation
         player.animations.play('walk');
-        this.footsteps.play('', 0 , 1, false, false);﻿﻿
         player.scale.x = -1;
+        
+        //footsteps audio
+        this.footsteps.play('', 0 , 1, false, false);﻿﻿
+        
+        //parallax
+        if (this.parallaxForeground != null) {
+          this.parallaxForeground.tilePosition.x += parallaxForegroundSpeed;
+          this.parallaxBackground.tilePosition.x += parallaxBackgroundSpeed;
+        }
     }
 
     else if (cursors.right.isDown){
         player.body.velocity.x =150;//move to right
+        
+        //animation
         player.animations.play('walk');
-        this.footsteps.play('', 0 , 1, false, false);﻿﻿
         player.scale.x = 1;
+        
+        //footsteps audio
+        this.footsteps.play('', 0 , 1, false, false);﻿﻿
+        
+        //parallax
+        if (this.parallaxForeground != null) {
+          this.parallaxForeground.tilePosition.x -= parallaxForegroundSpeed;
+          this.parallaxBackground.tilePosition.x -= parallaxBackgroundSpeed;
+        }
 
     }
 
     else
     {
+      this.footsteps.stop();
       player.animations.play('stand'); // stand
     }
     //---------------------------------//
