@@ -24,17 +24,17 @@ Player.prototype.update = function() {
 
     cursors = game.input.keyboard.createCursorKeys();//to make the player move by using keyboard
 
-    console.log("hahaha");
     //---------MOVEMENT----------------//
     player.body.velocity.x = 0;
     //block.body.velocity.x = 0;
     if (cursors.left.isDown){//move to left
         player.body.velocity.x = -150;
         player.animations.play('walk');
+        console.log(player);
         player.scale.x = -1;
     }
 
-    if (cursors.right.isDown){
+    else if (cursors.right.isDown){
         player.body.velocity.x =150;//move to right
         player.animations.play('walk');
         player.scale.x = 1;

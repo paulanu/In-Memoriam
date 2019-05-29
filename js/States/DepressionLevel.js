@@ -1,4 +1,6 @@
-var player; var grass;
+var player; 
+var grass; 
+
 var DepressionLevel = function() { 
 	// platforms group
 	var platforms;
@@ -33,70 +35,33 @@ DepressionLevel.prototype = {
         );
 
         //LEVEL ELEMENTS
-        var car = this.game.add.sprite(-100, game.world.height - 210, 'levelOneSprites', 'Night_Car');
+        var car = this.game.add.sprite(-100, game.world.height - 230, 'levelOneSprites', 'Night_Car');
 
         var house = this.game.add.sprite(game.world.width - 393, 0, 'levelOneSprites', 'Night_House');
+
+        //Tree with swing 
+        var tree = this.game.add.sprite(100, 0, 'levelOneSprites', 'Night_Swing');
+
+        //mailbox
+        addGlow(700, game.world.height - 130, 50, 350, true);
+        var mailbox = this.game.add.sprite(650, game.world.height - 350, 'Night_Mailbox');
+        addGlow(700, game.world.height - 130, 50, 350, false);
 
         //PLAYER
         player = new Player(game, 100, 100); 
         game.add.existing(player);
-        console.log(player);
 
-        grass = this.game.add.tileSprite(0, game.world.height - 120, game.world.width, 120, 
-            'levelOneSprites', 'Night_Grass');
+        //grass
+        grass = this.game.add.tileSprite(0, game.world.height - 140, game.world.width, 140, 'Night_Grass');
     	game.physics.arcade.enable(grass);
-    	//grass.enableBody = true;
 		grass.body.immovable = true; 
     	grass.body.setSize(grass.body.width, grass.body.height - 10, 0, 50);
 
-		// // player physics properties
-		// player = game.add.sprite(this.playerX, this.playerY, 'player_animation');
-		// player.anchor.x = 0.5;
-		// player.scale.x = this.facing;
-		// game.physics.arcade.enable(player);
-		// player.body.gravity.y = 600;
-		// // player.body.collideWorldBounds = true;
-		// player.animations.add('stand', [8], 6, true);
-		// player.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
-		// player.animations.add('jump', [9], 12, true);
-		// 		console.log(player.body.width + " " + player.body.height);
-		// player.body.setSize(45, 266, 65, 0);
-    
-	 //    // create platforms group
-  //       platforms = game.add.group();
-  //       platforms.enableBody = true;
-
-	 //    // create the ground
-	 //    ground = platforms.create(0, game.world.height - 76, 'grass_ground_sepia');
-		// ground.body.immovable = true; 
-		// ground.body.setSize(ground.body.width, ground.body.height - 10, 0, 50);
-
-		// //this is just to fill in the gap btwn the ledge and the ground
-	 //  	ledge = platforms.create(300, 250, 'grass_platform_sepia');
-		// ledge.body.immovable = true;
-		// ledge.angle = 5;
-		// ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
-
-	 //    // create ledge
-	 //  	ledge = platforms.create(300, 150, 'grass_platform_sepia');
-		// ledge.body.immovable = true;
-		// ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
-
-	 //    rock = game.add.sprite(500, 100, 'rock_sepia');
-	 //    rock.enableBody = true;
+    	//rain
+    	addRain();
 
 	 //    // create fade in rect
 	 //    fadeInRect = game.add.sprite(0, 0, 'fade_in');
-
-	 //    // play standing animation
-	 //    player.animations.play('stand');
-
-	    //game.physics.arcade.enable(rock);
-	    //rock.body.bounce.y =0.2;
-
-	    //rock.body.gravity.y =1000;
-	   //rock.body.immovable = true;
-	    //rock.body.collideWorldBounds = true;
 
     },
 
@@ -131,44 +96,5 @@ DepressionLevel.prototype = {
   //       this.playerY = player.y;
   //       this.facing = player.scale.x;
 
-  //       //-----------TEMPORARY CONTROLS---------------------//
-	 //    // set player velocity
-	 //    player.body.velocity.x = 0;
-
-	 //    game.physics.arcade.collide(rock, platforms);
-	 //    game.physics.arcade.collide(rock, player);
-
-	 //    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) // move left
-	 //    {
-	 //        player.body.velocity.x = -100;
-	 //        player.animations.play('walk');
-	 //        player.scale.x = -1;
-	 //    }
-
-	 // 	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) // move right
-	 //    {
-	 //        player.body.velocity.x = 100;
-	 //       	player.animations.play('walk');
-	 //       	player.scale.x = 1;
-	 //    }
-
-	 //    else
-	 //    {
-	 //    	player.animations.play('stand'); // stand
-	 //    }
-	    
-	 //    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && player.body.touching.down) // jump if player is touching the ground
-	 //    {
-	 //        player.body.velocity.y =  -450;
-		// }
-
-	 //    if (!player.body.touching.down) // player jump animation
-	 //    {
-	 //    	player.animations.play('jump');
-	 //    }
-
-
-
-	    //------------------------------------------------//
     }
 }
