@@ -20,12 +20,12 @@ function addGlow(x, y, width, height, behind) {
 
         if (behind) {
                 emitter.gravity = -10;
-                this.emitter.start(false, 1000, 200);
+                this.emitter.start(false, 500, 100);
         }
 
         else {
                 this.emitter.setAlpha(0.3, 0, 500);
                 this.emitter.setScale(0.3, .1, 0.3, 0.1, 500);
-                this.emitter.start(false, 500, 500) //explode, life span, frequency
+                this.emitter.start(false, 500, 400) //explode, life span, frequency
         }
 }

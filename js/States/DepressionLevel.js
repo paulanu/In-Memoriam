@@ -59,6 +59,8 @@ DepressionLevel.prototype = {
     	player.parallaxBackground = backgroundTrees;
         game.add.existing(player);
         game.camera.follow(player);
+        game.camera.deadzone = new Phaser.Rectangle(100, 100, 200, 500);
+
 
         //grass
         grass = this.game.add.tileSprite(0, game.world.height - 140, game.world.width, 140, 'Night_Grass');

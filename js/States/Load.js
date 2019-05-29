@@ -13,6 +13,7 @@ Load.prototype= {
         //Audio 
         //http://www.orangefreesounds.com/rain-and-thunder-loop/
         game.load.audio('rain', 'assets/audio/rain_Background.mp3');
+        //https://freesound.org/people/Yuval/sounds/206030/
         game.load.audio('grass_footsteps', 'assets/audio/grass_footsteps.mp3');
 
         //fixed sizing issues, add to atlas later
