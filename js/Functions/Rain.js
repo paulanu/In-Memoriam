@@ -28,7 +28,7 @@ function addRain() {
         this.emitter.minRotation = 0;
         this.emitter.maxRotation = 0;
 
-        this.emitter.start(false, 330, 5, 0);
+        this.emitter.start(false, 380, 5, 0);
 
 }
 

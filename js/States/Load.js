@@ -10,6 +10,11 @@ Load.prototype= {
         //background
         game.load.atlasJSONHash('levelOneSprites', 'assets/img/LevelOne.png','assets/img/LevelOne.json');
 
+        //Audio 
+        //http://www.orangefreesounds.com/rain-and-thunder-loop/
+        game.load.audio('rain', 'assets/audio/rain_Background.mp3');
+        game.load.audio('grass_footsteps', 'assets/audio/grass_footsteps.mp3');
+
         //fixed sizing issues, add to atlas later
         game.load.image('Night_Grass' , 'assets/img/new/Night_Grass.png');
         game.load.image('Night_Mailbox' , 'assets/img/new/Night_Mailbox.png');

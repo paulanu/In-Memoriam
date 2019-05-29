@@ -12,19 +12,20 @@ function addGlow(x, y, width, height, behind) {
         this.emitter.area = area;
 
         this.emitter.makeParticles('corona');
-        this.emitter.setAlpha(0.5, 0, 500); //min, max, how long to go from min --> max 
-        this.emitter.setScale(1, .2, 1, .2, 100); //min x, max x, min / max y,, rate min --> max
+        // this.emitter.alpha = 0.2;
+        this.emitter.setAlpha(0.1, 0, 2000); //min, max, how long to go from min --> max 
+        this.emitter.setScale(1, .2, 1, .2, 2000); //min x, max x, min / max y,, rate min --> max
 
         emitter.gravity = -50;
 
-        this.emitter.minRotation = 0;
-        this.emitter.maxRotation = 0;
+        if (behind) {
+                emitter.gravity = -10;
+                this.emitter.start(false, 1000, 200);
+        }
 
-        if (behind)
-                this.emitter.start(false, 600, 500);
         else {
                 this.emitter.setAlpha(0.3, 0, 500);
-                this.emitter.setScale(0.3, .1, 0.3, 0.1, 100);
-                this.emitter.start(false, 600, 500)
+                this.emitter.setScale(0.3, .1, 0.3, 0.1, 500);
+                this.emitter.start(false, 500, 500) //explode, life span, frequency
         }
 }

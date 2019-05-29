@@ -1,5 +1,6 @@
 var player; 
 var grass; 
+var backgroundMusic;
 
 var DepressionLevel = function() { 
 	// platforms group
@@ -49,6 +50,7 @@ DepressionLevel.prototype = {
 
         //PLAYER
         player = new Player(game, 100, 100); 
+        player.footsteps = game.add.audio('grass_footsteps');
         game.add.existing(player);
 
         //grass
@@ -59,6 +61,11 @@ DepressionLevel.prototype = {
 
     	//rain
     	addRain();
+
+    	//music
+    	backgroundMusic = game.add.audio('rain');
+        backgroundMusic.play('', 0, .3, true);    // ('marker', start position, volume (0-1), loop)
+
 
 	 //    // create fade in rect
 	 //    fadeInRect = game.add.sprite(0, 0, 'fade_in');
