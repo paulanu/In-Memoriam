@@ -1,6 +1,7 @@
 var player; 
 var grass; 
 var backgroundMusic;
+var extraWidth = 700; //adjust this to change level width
 
 var DepressionLevel = function() { 
 	// platforms group
@@ -20,11 +21,16 @@ DepressionLevel.prototype = {
 	},
 
     create: function() {
+    	//adjust world bounds, this is a long one boys
+    	game.world.setBounds(0, 0, game.world.width + extraWidth, game.world.height);
+
 	    // start the physics system
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	    // BACKGROUND ART ELEMENTS
-		var background = game.add.sprite(0, 0, 'levelOneSprites', 'Night_BG');
+		var background = this.game.add.tileSprite(0, 0, game.world.width, game.world.height, 
+            'levelOneSprites', 'Night_BG'
+        );
 
         var backgroundTrees = this.game.add.tileSprite(0, 0, game.world.width, game.world.height, 
             'levelOneSprites', 'Night_BG_Trees'
@@ -39,12 +45,12 @@ DepressionLevel.prototype = {
         var house = this.game.add.sprite(game.world.width - 393, 0, 'levelOneSprites', 'Night_House');
 
         //Tree with swing 
-        var tree = this.game.add.sprite(100, 0, 'levelOneSprites', 'Night_Swing');
+        var tree = this.game.add.sprite(100 + extraWidth, 0, 'levelOneSprites', 'Night_Swing');
 
         //mailbox
-        addGlow(700, game.world.height - 130, 50, 350, true);
-        var mailbox = this.game.add.sprite(650, game.world.height - 350, 'Night_Mailbox');
-        addGlow(700, game.world.height - 130, 50, 350, false);
+        addGlow(700 + extraWidth, game.world.height - 130, 50, 350, true);
+        var mailbox = this.game.add.sprite(650 + extraWidth, game.world.height - 350, 'Night_Mailbox');
+        addGlow(700 + extraWidth, game.world.height - 130, 50, 350, false);
 
         //PLAYER
         player = new Player(game, 100, 100); 
@@ -52,6 +58,7 @@ DepressionLevel.prototype = {
         player.parallaxForeground = foregroundTrees;
     	player.parallaxBackground = backgroundTrees;
         game.add.existing(player);
+        game.camera.follow(player);
 
         //grass
         grass = this.game.add.tileSprite(0, game.world.height - 140, game.world.width, 140, 'Night_Grass');
