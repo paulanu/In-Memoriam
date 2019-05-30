@@ -18,7 +18,8 @@ window.onload = function() {
     game.state.add('End', End);
 
     // levels
-    game.state.add('DepressionLevel', DepressionLevel);
+    game.state.add('LevelOnePast', LevelOnePast);
+    game.state.add('LevelOnePresent', LevelOnePresent);
 
     //test states
     game.state.add('PaulaTestLevel', PaulaTestLevel);
