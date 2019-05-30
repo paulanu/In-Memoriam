@@ -62,9 +62,6 @@ PaulaTestLevel2.prototype = {
 		ledge.body.immovable = true;
 		ledge.body.setSize(ledge.body.width, ledge.body.height - 10, 50, 50);
 
-	    //create fade in rect
-	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
-
 	    // play standing animation
 	    player.animations.play('stand');
 
@@ -77,24 +74,27 @@ PaulaTestLevel2.prototype = {
 	    rock.body.immovable = false;
 	    rock.body.collideWorldBounds = true;
 
+	    //create fade in rect
+	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
+
     },
 
-	 render: function() {
+	//  render: function() {
 
-
-	    game.debug.body(ground);
-	    game.debug.body(ledge);
-	    game.debug.body(player);
-	    game.debug.body(tree);
-	    game.debug.body(rock);
 
 	//     game.debug.body(ground);
 	//     game.debug.body(ledge);
 	//     game.debug.body(player);
 	//     game.debug.body(tree);
+	//     game.debug.body(rock);
+
+	// //     game.debug.body(ground);
+	// //     game.debug.body(ledge);
+	// //     game.debug.body(player);
+	// //     game.debug.body(tree);
 
 
-	},
+	// },
 
 
     update: function() {
@@ -110,12 +110,6 @@ PaulaTestLevel2.prototype = {
     	enterMemoryOrPresent('PaulaTestLevel');
 
     	//rock.body.velocity.x =0;
-
-
-    	// space to go to GameOver state
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
-            game.state.start('GameOver');
-        }
 
         // collisions
         game.physics.arcade.collide(player, platforms);
@@ -165,14 +159,7 @@ PaulaTestLevel2.prototype = {
 	    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) && player.body.touching.down) // jump if player is touching the ground
 
 	    {
-	        player.body.velocity.y =  -350;
-		}
-
-	    if (!player.body.touching.down) // player jump animation
-	    {
-
-	    {
-	        player.body.velocity.y =  -350;
+	        player.body.velocity.y =  -450;
 		}
 
 	    if (!player.body.touching.down) // player jump animation
@@ -182,20 +169,20 @@ PaulaTestLevel2.prototype = {
 	    }
 
 	    //if((game.physics.arcade.collide(player, rock)) && (game.input.keyboard.isDown(Phaser.Keyboard.S))){
-	    	if((game.input.keyboard.isDown(Phaser.Keyboard.S)) && (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))){
-	    		
-	    		 //rock.body.velocity = 0;
-	    		 game.physics.arcade.collide(rock, player);
-	    		 player.body.velocity.x = -150;
-                 rock.body.velocity.x = -300;
-                
-                 }
-            if((game.input.keyboard.isDown(Phaser.Keyboard.S)) && (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))){
-            	game.physics.arcade.collide(rock, player);
-	    		 player.body.velocity.x = 150;
-                 rock.body.velocity.x = 100;
+    	if((game.input.keyboard.isDown(Phaser.Keyboard.S)) && (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))){
+    		
+    		 //rock.body.velocity = 0;
+    		 game.physics.arcade.collide(rock, player);
+    		 player.body.velocity.x = -150;
+             rock.body.velocity.x = -300;
+            
+        }
+        if((game.input.keyboard.isDown(Phaser.Keyboard.S)) && game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+        	game.physics.arcade.collide(rock, player);
+    		player.body.velocity.x = 150;
+            rock.body.velocity.x = 100;
 
-            }
+        }
 
 
 
@@ -208,15 +195,4 @@ PaulaTestLevel2.prototype = {
 }
 //}
 
-function table (player, block){
-  if(game.input.keyboard.isDown(Phaser.keyboard.S)){
-   // block.body.velocity = 0;
-    //if(cursors.left.isDown){
-      block.body.velocity.x = -150;
-    //}
-    //if(cursors.right.isDown){
-      //block.body.velocity.x = 150;
-    //}
-  }
-}
 

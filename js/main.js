@@ -8,7 +8,7 @@ var player;
 // wait for brower
 window.onload = function() {
     // define game
-    game = new Phaser.Game(854, 480, Phaser.AUTO, 'ourGame');
+    game = new Phaser.Game(1280, 720, Phaser.AUTO, 'ourGame');
 
     // define states
     game.state.add('Load', Load);
@@ -16,6 +16,9 @@ window.onload = function() {
     game.state.add('Play', Play);
     game.state.add('GameOver', GameOver);
     game.state.add('End', End);
+
+    // levels
+    game.state.add('DepressionLevel', DepressionLevel);
 
     //test states
     game.state.add('PaulaTestLevel', PaulaTestLevel);
