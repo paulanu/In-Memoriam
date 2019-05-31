@@ -24,6 +24,7 @@ Load.prototype= {
 
         //Temp 
         game.load.image('corona', 'assets/img/temp/blue.png');
+        game.load.image('msgBoxBack', 'assets/img/temp/platform.png');
 		game.load.image('fade_in', 'assets/img/temp/fade_in.png');
 		switchKey = game.input.keyboard.addKey(Phaser.Keyboard.E);
     },

@@ -1,6 +1,5 @@
 var player; 
 var grass; 
-var backgroundMusic;
 var extraWidth = 700; //adjust this to change level width
 
 var LevelOnePresent = function() { 
@@ -53,8 +52,9 @@ LevelOnePresent.prototype = {
 
         //mailbox
         addGlow(725 + extraWidth, game.world.height - 130, 60, 350, true);
-        var mailbox = this.game.add.sprite(650 + extraWidth, game.world.height - 350,
-         'levelOneSprites', 'Night_Mailbox');
+        var mailbox = new DialogueItem(game, 650 + extraWidth, game.world.height - 350,
+         150, 150, 100,'levelOneSprites', 'Night_Mailbox', "hihihihihi");
+    	game.add.existing(mailbox);
         addGlow(725 + extraWidth, game.world.height - 130, 60, 350, false);
         mailbox.inputEnabled = true;
 
@@ -76,6 +76,9 @@ LevelOnePresent.prototype = {
 		grass.body.immovable = true; 
     	grass.body.setSize(grass.body.width, grass.body.height - 10, 0, 50);
 
+    	// var dialogue = new DialogueItem(game, 100, 100, 150, 100, 'corona', "hihihihihi");
+    	// game.add.existing(dialogue);
+
     	//gradient layer on top of all
         var gradient = this.game.add.tileSprite(0, 0, game.world.width, game.world.height,
          'levelOneSprites', 'Night_Dark');
@@ -90,6 +93,7 @@ LevelOnePresent.prototype = {
 
 	    // create fade in rect
 	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
+        fadeInRect.scale.x = 5;
 	    fadeInRect.alpha = this.fadeInRectAlpha;
 
     },
