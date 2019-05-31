@@ -1,6 +1,5 @@
 var player; 
 var grass; 
-var backgroundMusic;
 var extraWidth = 700; //adjust this to change level width
 
 var LevelOnePast = function() { 
@@ -83,6 +82,7 @@ LevelOnePast.prototype = {
 
 	 //    // create fade in rect
 	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
+        fadeInRect.scale.x = 5;
         fadeInRect.alpha = this.fadeInRectAlpha;
 
     },

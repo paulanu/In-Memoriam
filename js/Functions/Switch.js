@@ -9,7 +9,7 @@ function switchAnimation() {
 
 	if (switching) {
 		fadeInRect.alpha += .05;
-		backgroundMusic.volume -= .05;
+		//backgroundMusic.volume -= .05;
 	}
 
 	if (fadeInRect.alpha >= 1 && switching) {
