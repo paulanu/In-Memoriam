@@ -21,10 +21,12 @@ Load.prototype= {
 
         //fixed sizing issues, add to atlas later
         game.load.image('Sepia_BG_Trees', 'assets/img/new/Sepia_BG_Trees.png');
+
         game.load.image('left', 'assets/img/left.png');
         game.load.image('right', 'assets/img/right.png');
         game.load.image('mouse', 'assets/img/mouse.png');
         game.load.image('arrow', 'assets/img/arrow.png');
+
 
         //Temp 
         game.load.image('corona', 'assets/img/temp/blue.png');
