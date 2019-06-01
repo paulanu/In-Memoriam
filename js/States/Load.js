@@ -6,7 +6,8 @@ Load.prototype= {
         console.log('LOAD');
 
 		game.load.spritesheet('player_animation', 'assets/img/player_animation.png', 170, 266);
-        
+        game.load.spritesheet('switch_animation', 'assets/img/switch_animation.png', 600, 338);
+
         //background
         game.load.atlasJSONHash('levelOneSprites', 'assets/img/LevelOne.png','assets/img/LevelOne.json');
 

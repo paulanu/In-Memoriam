@@ -6,12 +6,10 @@ var LevelOnePresent = function() {
 	// platforms group
 	var platforms;
 
-	// the fade in rect
-	var fadeInRect;
 };
 LevelOnePresent.prototype = { 
 
-	init: function(playerX, playerY, facing, fgTilePosX, bgTilePosX, fadeInRectAlpha) {
+	init: function(playerX, playerY, facing, fgTilePosX, bgTilePosX, fadeInRectAlpha, transition = true) {
 		//--------HAVE THIS IN EVERY LEVEL----------
 		this.playerX = playerX;
 		this.playerY = playerY;
@@ -19,6 +17,7 @@ LevelOnePresent.prototype = {
         this.fgTilePosX = fgTilePosX;
         this.bgTilePosX = bgTilePosX;
         this.fadeInRectAlpha = fadeInRectAlpha;
+        this.playTransition = transition; 
 		//-----------------------------------------
 	},
 
@@ -90,11 +89,18 @@ LevelOnePresent.prototype = {
     	backgroundMusic = game.add.audio('rain');
         backgroundMusic.play('', 0, .3, true);    // ('marker', start position, volume (0-1), loop)
 
+	    // create fade in rect for switching
+	    fadeInRect = game.add.sprite(0, 0, 'switch_animation');
+        fadeInRect.width = game.camera.width;
+        fadeInRect.height = game.camera.height;
+    	fadeInRect.animations.add('switch_animation', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    		10,11,12,13,14,15,16,17,18], 5, false);
 
-	    // create fade in rect
-	    fadeInRect = game.add.sprite(0, 0, 'fade_in');
-        fadeInRect.scale.x = 5;
-	    fadeInRect.alpha = this.fadeInRectAlpha;
+    	if (this.playTransition) {
+            fadeInRect.animations.add('enter_level', [18,17,16,15,14,13,12,11,10,9,8,
+                7,6,5,4,3,2,1,0,19], 5, false);
+			fadeInRect.animations.play('enter_level', 5, false);
+    	}
 
     },
 
