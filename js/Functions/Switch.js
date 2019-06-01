@@ -1,30 +1,33 @@
-//put this function in an level's update() function
+var fadeInRect;
+var switching; 
+var switchLevelName;
 
-//switchToLevelName: The level you are going to switch to
-//objectListToTransfer: if Objects have been moved, input their x / y here. 
-function switchStates(switchToLevelName, objectListToTransfer) {
-	game.camera.fade(0x000000, 200, false);
-	game.camera.onFadeComplete.add(function() {
-		game.state.start(switchToLevelName, true, false, player.position.x, player.position.y, player.scale.x);
-	}, this);
+//used for fading out music
+var backgroundMusic;
 
+function switchAnimation() {
+
+	if (switching) {
+		fadeInRect.alpha += .05;
+		//backgroundMusic.volume -= .05;
+	}
+
+	if (fadeInRect.alpha >= 1 && switching) {
+		switching = false; 
+		backgroundMusic.stop();
+		game.state.start(switchLevelName, true, false, player.position.x, player.position.y, player.scale.x,
+			player.parallaxForeground.tilePosition.x, player.parallaxBackground.tilePosition.x, 1);
+	}
+
+	//for fade into levels
+	if (switching == false && fadeInRect.alpha > 0) {
+		fadeInRect.alpha -= .09
+		if (fadeInRect.alpha < 0) fadeInRect.alpha = 0;
+	}
 }
 
-var fadeOutUntilComplete = false; 
-
-function enterMemoryOrPresent(switchToLevelName) {
-	if (switchKey.isDown && !fadeOutUntilComplete) {
-		fadeInRect.alpha += .01;
-
-		if (fadeInRect.alpha >= 1) {
-			fadeOutUntilComplete = true; 
-			game.state.start(switchToLevelName, true, false, player.position.x, player.position.y, player.scale.x);
-		}
-	}
-	else
-		fadeInRect.alpha = game.math.max(fadeInRect.alpha - .05, 0);
-
-	if (fadeInRect.alpha == 0)
-		fadeOutUntilComplete = false;
+function enterMemoryOrPresent(sprite, pointer, switchToLevelName) {
+	switching = true; 
+	switchLevelName = switchToLevelName.level;
 }
 
