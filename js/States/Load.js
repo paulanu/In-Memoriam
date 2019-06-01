@@ -10,6 +10,7 @@ Load.prototype= {
 
         //background
         game.load.atlasJSONHash('levelOneSprites', 'assets/img/LevelOne.png','assets/img/LevelOne.json');
+        game.load.atlasJSONHash('levelFiveSprites', 'assets/img/LevelFive.png','assets/img/LevelFive.json');
 
         //Audio 
         //http://www.orangefreesounds.com/rain-and-thunder-loop/
