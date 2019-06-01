@@ -89,7 +89,6 @@ DepressionLevel.prototype = {
         mouse = game.add.group();
 
         var m = mouse.create(1388, 330, 'mouse');
-        //var arrow = mouse.create(1390, 320, 'arrow');
         mouse.alpha = -2;
         game.add.tween(mouse).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0);// 1000, false);
       
