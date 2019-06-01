@@ -79,8 +79,8 @@ DepressionLevel.prototype = {
         backgroundMusic.play('', 0, .3, true);    // ('marker', start position, volume (0-1), loop)
 
         arrowkey = game.add.group();
-        var rightkey = arrowkey.create(450, 200, 'right');
-        var leftkey = arrowkey.create(300, 200, 'left');
+        var rightkey = arrowkey.create(107, 310, 'right');
+        var leftkey = arrowkey.create(57, 310, 'left');
 
         arrowkey.alpha = -1;
 
@@ -88,8 +88,8 @@ DepressionLevel.prototype = {
 
         mouse = game.add.group();
 
-        var m = mouse.create(1450, 250, 'mouse');
-        var arrow = mouse.create(1390, 320, 'arrow');
+        var m = mouse.create(1388, 330, 'mouse');
+        //var arrow = mouse.create(1390, 320, 'arrow');
         mouse.alpha = -2;
         game.add.tween(mouse).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0);// 1000, false);
       
@@ -137,14 +137,14 @@ DepressionLevel.prototype = {
 
   if(cursors.right.isDown || cursors.left.isDown){
     //arrowkey.kill();
-    game.add.tween(arrowkey).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, 10, true);
+    game.add.tween(arrowkey).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, 1000, true);
     //arrowkey.destroy();
   }
 
 
   if (game.input.mousePointer.isDown){
      //mouse.kill();
-   game.add.tween(mouse).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, 100, true);
+   game.add.tween(mouse).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, 100, true);
   }
 }
 

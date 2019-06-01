@@ -1,4 +1,4 @@
-"use strict";
+ß"use strict";
 
 // global variables
 var game;

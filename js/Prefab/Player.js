@@ -1,3 +1,5 @@
+
+
 parallaxForegroundSpeed = .05;
 parallaxBackgroundSpeed = .02;
 
