@@ -1,13 +1,16 @@
 parallaxForegroundSpeed = .05;
 parallaxBackgroundSpeed = .02;
 
-function Player(game, x, y){
+function Player(game, x, y, scale){
     this.footsteps; 
     this.parallaxForeground;
     this.parallaxBackground; 
 
 
     Phaser.Sprite.call(this, game, x, y, 'player_animation');
+
+    //for facing direction
+    this.scale.x = scale;
 
     //physics
     game.physics.arcade.enable(this);
