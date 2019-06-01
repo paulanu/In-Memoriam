@@ -6,7 +6,6 @@ function DialogueItem(game, x, y, spriteWidth, width, height, atlasKey, key, dia
     var sprite = Phaser.Sprite.call(this, game, x, y, atlasKey, key);
     this.minX = x - 10; 
     this.maxX = x + spriteWidth + 10; 
-    console.log(this.minX + " " + this.maxX + " "+ x);
     this.boxWidth = width;
     this.boxHeight = height; 
 
@@ -24,7 +23,6 @@ DialogueItem.prototype.update = function() {
    if (player.position.x > this.minX && player.position.x < this.maxX) {
     var x = this.position.x - 10; 
     var y = this.position.y - this.boxHeight;
-    console.log(this.position.y + " " + y);
     this.showMessageBox(this.boxWidth, this.boxHeight, x, y, this.dialogue);
 
    }
