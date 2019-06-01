@@ -2,6 +2,7 @@ var player;
 var grass; 
 var extraWidth = 700; //adjust this to change level width
 
+
 var LevelOnePast = function() { 
 	// platforms group
 	var platforms;
@@ -85,6 +86,8 @@ LevelOnePast.prototype = {
         fadeInRect.scale.x = 5;
         fadeInRect.alpha = this.fadeInRectAlpha;
 
+
+
     },
 
 	// render: function() {
@@ -98,6 +101,7 @@ LevelOnePast.prototype = {
     	game.physics.arcade.collide(player, grass);
 
         switchAnimation();
+
     	   //      background.tilePosition.x -= 1;
         // foreground.tilePosition.x -= 10;
 
