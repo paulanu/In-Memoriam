@@ -56,11 +56,13 @@ LevelOnePresent.prototype = {
         var tree = this.game.add.sprite(100 + extraWidth, 0, 'levelOneSprites', 'Night_Swing');
 
         //mailbox
-        addGlow(725 + extraWidth, game.world.height - 130, 60, 350, true);
+        addGlow(690 + extraWidth, game.world.height - 130, 60, 350, true);
         var mailbox = new DialogueItem(game, 650 + extraWidth, game.world.height - 350,
          150, 250, 100,'levelOneSprites', 'Night_Mailbox', "I haven't had the energy to look at these.");
     	game.add.existing(mailbox);
-        addGlow(725 + extraWidth, game.world.height - 130, 60, 350, false);
+        mailbox.scale.x =  .7;
+        mailbox.scale.y = .7;
+        addGlow(690 + extraWidth, game.world.height - 130, 60, 350, false);
         mailbox.inputEnabled = true;
 
         //PLAYER

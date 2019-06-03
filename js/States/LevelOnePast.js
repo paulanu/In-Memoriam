@@ -54,12 +54,12 @@ LevelOnePast.prototype = {
         var tree = this.game.add.sprite(85 + extraWidth, 0, 'levelOneSprites', 'Sepia_Swing');
 
         //mailbox
-        addGlow(700 + extraWidth, game.world.height - 130, 50, 350, true);
+        addGlow(690 + extraWidth, game.world.height - 130, 50, 350, true);
         var mailbox = this.game.add.sprite(650 + extraWidth, game.world.height - 350,
         'levelOneSprites', 'Sepia_Mailbox');
-        mailbox.scale.x = 1.3;
-        mailbox.scale.y = 1.3;
-        addGlow(700 + extraWidth, game.world.height - 130, 50, 350, false);
+        mailbox.scale.x = .8;
+        mailbox.scale.y = .8;
+        addGlow(690 + extraWidth, game.world.height - 130, 50, 350, false);
         mailbox.inputEnabled = true;
 
         //PLAYER
