@@ -5,7 +5,7 @@ Load.prototype= {
         // load assets
         console.log('LOAD');
 
-		game.load.spritesheet('player_animation', 'assets/img/player_animation.png', 170, 266);
+		game.load.spritesheet('player_animation', 'assets/img/player_animation.png', 340, 532);
         game.load.spritesheet('switch_animation', 'assets/img/switch_animation.png', 600, 338);
 
         //background
@@ -27,12 +27,10 @@ Load.prototype= {
         game.load.image('left', 'assets/img/left.png');
         game.load.image('right', 'assets/img/right.png');
         game.load.image('mouse', 'assets/img/mouse.png');
-        game.load.image('arrow', 'assets/img/arrow.png');
-
 
         //Temp 
         game.load.image('corona', 'assets/img/temp/blue.png');
-        game.load.image('msgBoxBack', 'assets/img/temp/platform.png');
+        game.load.image('msgBoxBack', 'assets/img/new/asset 1.png');
 		game.load.image('fade_in', 'assets/img/temp/fade_in.png');
 		switchKey = game.input.keyboard.addKey(Phaser.Keyboard.E);
     },

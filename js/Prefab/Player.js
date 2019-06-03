@@ -20,7 +20,7 @@ function Player(game, x, y, scale){
 
     //collisions
     this.body.collideWorldBounds = true;
-    this.body.setSize(45, 266, 65, 0);
+    this.body.setSize(45, 535, 0, 0);
 
     //animations 
     this.animations.add('stand', [8], 6, true);
@@ -42,7 +42,7 @@ Player.prototype.update = function() {
         
         //animation
         player.animations.play('walk');
-        player.scale.x = -1;
+        player.scale.x = -.65;
         
         //footsteps audio
         this.footsteps.play('', 0 , 1, false, false);﻿﻿
@@ -59,7 +59,7 @@ Player.prototype.update = function() {
         
         //animation
         player.animations.play('walk');
-        player.scale.x = 1;
+        player.scale.x = .65;
         
         //footsteps audio
         this.footsteps.play('', 0 , 1, false, false);﻿﻿

@@ -14,7 +14,7 @@ var LevelOnePresent = function() {
 };
 LevelOnePresent.prototype = { 
 
-	init: function(playerX, playerY, facing, fgTilePosX, bgTilePosX, fadeInRectAlpha, transition = true) {
+	init: function(playerX, playerY, facing, fgTilePosX, bgTilePosX, fadeInRectAlpha, transition = true, cameraX = 0) {
 		//--------HAVE THIS IN EVERY LEVEL----------
 		this.playerX = playerX;
 		this.playerY = playerY;
@@ -23,6 +23,7 @@ LevelOnePresent.prototype = {
         this.bgTilePosX = bgTilePosX;
         this.fadeInRectAlpha = fadeInRectAlpha;
         this.playTransition = transition; 
+        this.cameraX = cameraX;
 		//-----------------------------------------
 	},
 
@@ -57,13 +58,15 @@ LevelOnePresent.prototype = {
         //mailbox
         addGlow(725 + extraWidth, game.world.height - 130, 60, 350, true);
         var mailbox = new DialogueItem(game, 650 + extraWidth, game.world.height - 350,
-         150, 150, 100,'levelOneSprites', 'Night_Mailbox', "hihihihihi");
+         150, 250, 100,'levelOneSprites', 'Night_Mailbox', "I haven't had the energy to look at these.");
     	game.add.existing(mailbox);
         addGlow(725 + extraWidth, game.world.height - 130, 60, 350, false);
         mailbox.inputEnabled = true;
 
         //PLAYER
-        player = new Player(game, this.playerX, this.playerY, this.facing); 
+        player = new Player(game, extraWidth + 900, this.playerY, this.facing); 
+        player.scale.x = this.facing;
+        player.scale.y = .65;
         player.footsteps = game.add.audio('grass_footsteps');
         player.parallaxForeground = foregroundTrees;
     	player.parallaxBackground = backgroundTrees;
@@ -95,16 +98,22 @@ LevelOnePresent.prototype = {
         backgroundMusic.play('', 0, .3, true);    // ('marker', start position, volume (0-1), loop)
 
 	    // create fade in rect for switching
-	    fadeInRect = game.add.sprite(0, 0, 'switch_animation');
+	    fadeInRect = game.add.sprite(this.cameraX, game.camera.y, 'switch_animation');
+        console.log(game.camera.x + " "  + game.camera.y);
+        console.log(this.cameraX + " " +  "FADEINRECT:" +  fadeInRect.position.x);
         fadeInRect.width = game.camera.width;
         fadeInRect.height = game.camera.height;
     	fadeInRect.animations.add('switch_animation', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
     		10,11,12,13,14,15,16,17,18], 5, false);
+        fadeInRect.animations.add('enter_level', [17,16,15,14,13,12,11,10,9,8,
+            7,6,5,4,3,2,1,0,19], 5, false);
 
     	if (this.playTransition) {
-            fadeInRect.animations.add('enter_level', [18,17,16,15,14,13,12,11,10,9,8,
-                7,6,5,4,3,2,1,0,19], 5, false);
-			fadeInRect.animations.play('enter_level', 5, false);
+            weirdAfWorkAround = game.add.sprite(0, 0, 'fade_in');
+            weirdAfWorkAround.width = game.world.width; 
+            weirdAfWorkAround.height = game.world.height;
+
+			fadeInRect.animations.play('enter_level', 5, false, false);
     	}
 
 
