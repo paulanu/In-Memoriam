@@ -24,7 +24,7 @@ function Player(game, x, y, scale){
 
     //collisions
     this.body.collideWorldBounds = true;
-    this.body.setSize(45, 535, 0, 0);
+    this.body.setSize(45, 535, -100, 0);
 
     //animations 
     this.animations.add('stand', [8], 6, true);

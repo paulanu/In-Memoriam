@@ -114,8 +114,8 @@ LevelOnePresent.prototype = {
 
 
         arrowkey = game.add.group();
-        var rightkey = arrowkey.create(120, 310, 'right');
-        var leftkey = arrowkey.create(70, 310, 'left');
+        var rightkey = arrowkey.create(120, 200, 'right');
+        var leftkey = arrowkey.create(70, 200, 'left');
 
         arrowkey.alpha = -1;
 
@@ -123,39 +123,45 @@ LevelOnePresent.prototype = {
 
         mouse = game.add.group();
 
-        var m = mouse.create(1414, 350, 'mouse');
-        mouse.alpha = -2;
-        game.add.tween(mouse).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0);// 1000, false);
+        if (!this.playTransition) {
+            var m = mouse.create(1390, 350, 'mouse');
+            mouse.alpha = -2;
+            game.add.tween(mouse).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0);// 1000, false);
+
+        }
 
 
     },
 
-	// render: function() {
+	render: function() {
 
-	//     game.debug.body(grass);
-	//     game.debug.body(player);
+	    game.debug.body(grass);
+	    game.debug.body(player);
 
-	// },
+	},
 
     update: function() {
     	game.physics.arcade.collide(player, grass);
 
     	switchAnimation(); 
 
+        if (player.position.x > (game.world.length - 10)) {
+            game.state.start(LevelTwoPast, true, false)       
+        }
 
-  cursors = game.input.keyboard.createCursorKeys();
+        cursors = game.input.keyboard.createCursorKeys();
 
-  if(cursors.right.isDown || cursors.left.isDown){
-    //arrowkey.kill();
-    game.add.tween(arrowkey).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, 1000, true);
-    //arrowkey.destroy();
-  }
+        if(cursors.right.isDown || cursors.left.isDown){
+        //arrowkey.kill();
+        game.add.tween(arrowkey).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, 1000, true);
+        //arrowkey.destroy();
+        }
 
 
-  if (game.input.mousePointer.isDown){
-     //mouse.kill();
-   game.add.tween(mouse).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, 100, true);
-  }
+        if (game.input.mousePointer.isDown){
+        //mouse.kill();
+        game.add.tween(mouse).to( { alpha: 0 }, 200, Phaser.Easing.Linear.None, 100, true);
+        }
 
     	   //      background.tilePosition.x -= 1;
         // foreground.tilePosition.x -= 10;

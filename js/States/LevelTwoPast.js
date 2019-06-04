@@ -1,5 +1,5 @@
 var palyer;
-var grass;
+var ground;
 var extraWidth =700;
 
 var LevelTwoPast = function() { 
@@ -31,51 +31,60 @@ LevelTwoPast.prototype = {
             'levelTwoSprites', 'Sepia_Kitchen_BG'
         );
 
-        var ground = this.game.add.tileSprite(0, game.world.height - 140, game.world.width, 140,
-        	'levelTwoSprites', 'Sepia_Floor');
 
-        game.physics.arcade.enable(ground);
-        ground.body.immovable = true;
-        ground.body.setSize(ground.body.width, ground.body.height - 10, 0, 50);
+        var cabinets = this.game.add.sprite(0, 0, 'levelTwoSprites', 'Sepia_Cabinets');
+        cabinets.scale.y =1.2;
 
-        var Cabinets = this.game.add.sprite(0, game.world.height - 728, 'levelTwoSprites', 'Sepia_Cabinets');
+        var stove = this.game.add.sprite(150, 140 + 220, 'levelTwoSprites', 'Sepia_Stove');
+        stove.scale.x =.9;
+        stove.scale.y =.9;
+        var sink = this.game.add.sprite(350, game.world.height - 430, 'levelTwoSprites', 'Sepia_Sink');
+        sink.scale.x =.9;
+        sink.scale.y =.9;
 
-       
+        var Fridge = this.game.add.sprite(0, 140 + 17, 'levelTwoSprites', 'Sepia_Fridge');
 
-        var stove = this.game.add.sprite(148, ground.body.height + 205, 'levelTwoSprites', 'Sepia_Stove');
-        var sink = this.game.add.sprite(370, game.world.height - 488, 'levelTwoSprites', 'Sepia_Sink');
-
-
-        //var Fridge = this.game.add.sprite(0, ground.body.height + 17, 'levelTwoSprites', 'Sepia_Fridge');
-
-        var Fridge = new DialogueItem(game, 0, ground.body.height + 17, 190, 166, 0, 'levelTwoSprites', 'Sepia_Fridge',
-        	"There's some cheese cake in the Fridge");
-        game.add.existing(Fridge);
+        // var Fridge = new DialogueItem(game, 0, ground.body.height + 17, 190, 166, 0, 'levelTwoSprites', 'Sepia_Fridge',
+        // 	"There's some cheese cake in the Fridge");
+        // game.add.existing(Fridge);
         //Fridge.inputEnabled = true;
 
 
-        var door = this.game.add.sprite(0, ground.body.height +71, 'levelTwoSprites', 'Sepia_Door');
-        var Stairs = this.game.add.sprite(1400, game.world.height - 710, 'levelTwoSprites', 'Sepia_Stairs');
+        var door = this.game.add.sprite(0, 140 +71, 'levelTwoSprites', 'Sepia_Door');
+        var Stairs = this.game.add.sprite(1400, game.world.height - 690, 'levelTwoSprites', 'Sepia_Stairs');
 
 
-        var win = this.game.add.sprite(848, game.world.height - 660, 'levelTwoSprites', 'Sepia_Window');
-
+        var win = this.game.add.sprite(870, game.world.height - 660, 'levelTwoSprites', 'Sepia_Window');
+        win.scale.x =.9;
+        win.scale.y =.9;
         //var flower = this.game.add.sprite(930, game.world.height - 540, 'levelTwoSprites', 'Sepia_Flowers');
+         
 
-        var flower = new DialogueItem(game, 930, game.world.height - 540, 176, 176, 0, 'levelTwoSprites', 'Sepia_Flowers',
+        var flower = new DialogueItem(game, 950, game.world.height - 445, 176, 176, 0, 'levelTwoSprites', 'Sepia_Flowers',
         	"This was my friend's favorite flower");
         game.add.existing(flower);
+        flower.scale.x =.7;
+        flower.scale.y =.7;
 
         //var Coatrack = this.game.add.sprite(700, game.world.height -577, 'levelTwoSprites', 'Sepia_Coatrack');
-        var Coatrack = new DialogueItem(game, 700, game.world.height - 577, 153, 153, 0, 'levelTwoSprites', 'Sepia_Coatrack',
+        var coatrack = new DialogueItem(game, 700, game.world.height - 500, 153, 153, 0, 'levelTwoSprites', 'Sepia_Coatrack',
         	"They're home!");
-        game.add.existing(Coatrack);
+        game.add.existing(coatrack);
+        coatrack.scale.x =.9;
+        coatrack.scale.y =.9;
 
+        var table = this.game.add.sprite(830, game.world.height - 310, 'levelTwoSprites', 'Sepia_Table');
+        table.scale.x =.9;
+        table.scale.y =.9;
+        var chair = this.game.add.sprite(1200, game.world.height - 400, 'levelTwoSprites', 'Sepia_Chair');
+        chair.scale.x =.9;
+        chair.scale.y =.9;
 
-        var table = this.game.add.sprite(800, game.world.height - 343, 'levelTwoSprites', 'Sepia_Table');
-        var chair = this.game.add.sprite(1200, game.world.height - 449, 'levelTwoSprites', 'Sepia_Chair');
-
-
+        ground = this.game.add.tileSprite(0, game.world.height - 140, game.world.width, 140,
+            'levelTwoSprites', 'Sepia_Floor');
+        game.physics.arcade.enable(ground);
+        ground.body.immovable = true;
+        ground.body.setSize(ground.body.width, ground.body.height - 10, 0, 16);
         
         
         //mailbox.inputEnabled = true;
@@ -88,6 +97,9 @@ LevelTwoPast.prototype = {
         game.camera.deadzone = new Phaser.Rectangle(100, 100, 200, 500);
 
 
+       
+
+
 	    fadeInRect = game.add.sprite(0, 0, 'switch_animation');
         fadeInRect.width = game.camera.width;
         fadeInRect.height = game.camera.height;
@@ -98,6 +110,8 @@ LevelTwoPast.prototype = {
                 7,6,5,4,3,2,1,0,19], 5, false);
             fadeInRect.animations.play('enter_level', 5, false, false);
         }
+
+
 	},
 
 	update: function() {

@@ -120,8 +120,9 @@ LevelOnePast.prototype = {
         switchAnimation();
     	game.physics.arcade.collide(player, grass);
 
-
-    	   //      background.tilePosition.x -= 1;
+        if (player.position.x > (game.world.length - 10)) {
+            game.state.start(LevelTwoPast, true, false)       
+        }
         // foreground.tilePosition.x -= 10;
 
     	//don't exit left side of screen
