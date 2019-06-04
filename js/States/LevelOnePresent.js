@@ -66,7 +66,7 @@ LevelOnePresent.prototype = {
         mailbox.inputEnabled = true;
 
         //PLAYER
-        player = new Player(game, extraWidth + 900, this.playerY, this.facing); 
+        player = new Player(game, this.playerX, this.playerY, this.facing); 
         player.scale.x = this.facing;
         player.scale.y = .65;
         player.footsteps = game.add.audio('grass_footsteps');
