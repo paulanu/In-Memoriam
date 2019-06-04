@@ -26,7 +26,7 @@ MainMenu.prototype = {
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
 			//do this before starting the level to set width - IMPORTANT: ONLY DO ONCE THATS WHY ITS HERE
 			game.world.setBounds(0, 0, game.world.width + extraWidth, game.world.height);
-    		game.state.start('LevelOnePresent', true, false, 120, game.world.height - 600, 1, 0, 0, 0, false);
+    		game.state.start('LevelTwoPast', true, false, 120, game.world.height - 600, .65, 0, 0, 0, false);
 		}
 	}
 }

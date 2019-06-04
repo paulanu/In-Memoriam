@@ -20,6 +20,7 @@ window.onload = function() {
     // levels
     game.state.add('LevelOnePast', LevelOnePast);
     game.state.add('LevelOnePresent', LevelOnePresent);
+    game.state.add('LevelTwoPast', LevelTwoPast);
 
     //test states
     game.state.add('PaulaTestLevel', PaulaTestLevel);

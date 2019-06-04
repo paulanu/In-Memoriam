@@ -7,10 +7,12 @@ Load.prototype= {
 
 		game.load.spritesheet('player_animation', 'assets/img/player_animation.png', 170, 266);
         game.load.spritesheet('switch_animation', 'assets/img/switch_animation.png', 600, 338);
+    
 
         //background
         game.load.atlasJSONHash('levelOneSprites', 'assets/img/LevelOne.png','assets/img/LevelOne.json');
         game.load.atlasJSONHash('levelFiveSprites', 'assets/img/LevelFive.png','assets/img/LevelFive.json');
+        game.load.atlasJSONHash('levelTwoSprites', 'assets/img/LevelTwo.png', 'assets/img/LevelTwo.json');
 
         //Audio 
         //http://www.orangefreesounds.com/rain-and-thunder-loop/
@@ -27,7 +29,7 @@ Load.prototype= {
         game.load.image('left', 'assets/img/left.png');
         game.load.image('right', 'assets/img/right.png');
         game.load.image('mouse', 'assets/img/mouse.png');
-        game.load.image('arrow', 'assets/img/arrow.png');
+        
 
 
         //Temp 
