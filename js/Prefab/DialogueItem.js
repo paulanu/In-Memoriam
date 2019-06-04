@@ -21,11 +21,10 @@ DialogueItem.prototype = Object.create(Phaser.Sprite.prototype);
 DialogueItem.prototype.constructor = DialogueItem;
 
 DialogueItem.prototype.update = function() {
-   if (player.position.x > this.minX && player.position.x < this.maxX && !switching) {
-    var x = this.position.x + ((this.spriteWidth - this.boxWidth) / 2); //center that beech 
-    var y = this.position.y - this.boxHeight - 10;
-    this.showMessageBox(this.boxWidth, this.boxHeight, x, y, this.dialogue);
-
+   if (player.position.x > this.minX && player.position.x < this.maxX && fadeInRect.frame == 19) {
+        var x = this.position.x + ((this.spriteWidth - this.boxWidth) / 2); //center that beech 
+        var y = player.position.y - 100; 
+        this.showMessageBox(this.boxWidth, this.boxHeight, x, y, this.dialogue);
    }
    else if (msgBox != null)
     msgBox.destroy();
