@@ -12,7 +12,7 @@ var LevelOnePast = function() {
 };
 LevelOnePast.prototype = { 
 
-	init: function(playerX, playerY, facing, fgTilePosX, bgTilePosX, fadeInRectAlpha, transition = true) {
+	init: function(playerX, playerY, facing, fgTilePosX, bgTilePosX, fadeInRectAlpha, transition = true, cameraX = 0) {
 		//--------HAVE THIS IN EVERY LEVEL----------
 		this.playerX = playerX;
 		this.playerY = playerY;
@@ -20,7 +20,8 @@ LevelOnePast.prototype = {
         this.fgTilePosX = fgTilePosX;
         this.bgTilePosX = bgTilePosX;
         this.fadeInRectAlpha = fadeInRectAlpha;
-        this.playTransition = transition;      
+        this.playTransition = transition;    
+        this.cameraX = cameraX;  
 		//-----------------------------------------
 	},
 
@@ -50,14 +51,15 @@ LevelOnePast.prototype = {
         var house = this.game.add.sprite(game.world.width - 410, 0, 'levelOneSprites', 'Sepia_House');
 
         //Tree with swing 
+        addGlow(965, 500, 170, 160, true);
         var tree = this.game.add.sprite(85 + extraWidth, 0, 'levelOneSprites', 'Sepia_Swing');
+        addGlow(965, 500, 170, 160, false);
 
         //mailbox
-        addGlow(700 + extraWidth, game.world.height - 130, 50, 350, true);
         var mailbox = this.game.add.sprite(650 + extraWidth, game.world.height - 350,
         'levelOneSprites', 'Sepia_Mailbox');
-        addGlow(700 + extraWidth, game.world.height - 130, 50, 350, false);
-        mailbox.inputEnabled = true;
+        mailbox.scale.x = .8;
+        mailbox.scale.y = .8;
 
         //PLAYER
         player = new Player(game, this.playerX, this.playerY, this.facing); 
@@ -65,10 +67,15 @@ LevelOnePast.prototype = {
         player.parallaxForeground = foregroundTrees;
     	player.parallaxBackground = backgroundTrees;
         game.add.existing(player);
-        game.camera.follow(player);
-        game.camera.deadzone = new Phaser.Rectangle(100, 100, 200, 500);
 
-        mailbox.events.onInputDown.add(enterMemoryOrPresent, this, 0, {level:'LevelOnePresent'});
+        var switchObject = new DialogueItem(game, 925, 435, 135, 250, 100, null, 'fade_in',
+            "We used to play on this when we were kids.");
+        game.add.existing(switchObject);
+        switchObject.alpha = 0;
+        switchObject.width = 135;
+        switchObject.height = 145;
+        switchObject.inputEnabled = true;
+        switchObject.events.onInputDown.add(enterMemoryOrPresent, this, 0, {level:'LevelOnePresent'});
 
         //grass
         grass = this.game.add.tileSprite(0, game.world.height - 140, game.world.width, 140, 
@@ -82,16 +89,20 @@ LevelOnePast.prototype = {
         backgroundMusic.play('', 0, .3, true);    // ('marker', start position, volume (0-1), loop)
 
 
-	 //    // create fade in rect
-	    fadeInRect = game.add.sprite(0, 0, 'switch_animation');
+	    // create fade in rect
+	    fadeInRect = game.add.sprite(this.cameraX, 0, 'switch_animation');
         fadeInRect.width = game.camera.width;
         fadeInRect.height = game.camera.height;
         fadeInRect.animations.add('switch_animation', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-        10,11,12,13,14,15,16,17,18], 5, false);
+            10,11,12,13,14,15,16,17,18], 5, false);
+        fadeInRect.animations.add('enter_level', [17,16,15,14,13,12,11,10,9,8,
+            7,6,5,4,3,2,1,0,19], 5, false);
+        fadeInRect.alpha = 1;
         if (this.playTransition) {
-            fadeInRect.animations.add('enter_level', [18,17,16,15,14,13,12,11,10,9,8,
-                7,6,5,4,3,2,1,0,19], 5, false);
-            fadeInRect.animations.play('enter_level', 5, false, false);
+            weirdAfWorkAround = game.add.sprite(0, 0, 'fade_in');
+            weirdAfWorkAround.width = game.world.width; 
+            weirdAfWorkAround.height = game.world.height;
+            fadeInRect.animations.play('enter_level', 10, false, false);
         }
 
 
@@ -106,9 +117,9 @@ LevelOnePast.prototype = {
 	// },
 
     update: function() {
+        switchAnimation();
     	game.physics.arcade.collide(player, grass);
 
-        switchAnimation();
 
     	   //      background.tilePosition.x -= 1;
         // foreground.tilePosition.x -= 10;

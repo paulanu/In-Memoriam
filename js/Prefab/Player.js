@@ -1,5 +1,8 @@
 parallaxForegroundSpeed = .05;
 parallaxBackgroundSpeed = .02;
+var playerScale = .65;
+var playerSpeed = 200;
+var rose;
 
 function Player(game, x, y, scale){
     this.footsteps; 
@@ -11,6 +14,7 @@ function Player(game, x, y, scale){
 
     //for facing direction
     this.scale.x = scale;
+    this.scale.y = playerScale;
 
     //physics
     game.physics.arcade.enable(this);
@@ -20,12 +24,14 @@ function Player(game, x, y, scale){
 
     //collisions
     this.body.collideWorldBounds = true;
-    this.body.setSize(45, 266, 65, 0);
+    this.body.setSize(45, 535, 0, 0);
 
     //animations 
     this.animations.add('stand', [8], 6, true);
     this.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
 
+    game.camera.follow(this);
+    game.camera.deadzone = new Phaser.Rectangle(350, 100, 200, 500);
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -37,46 +43,50 @@ Player.prototype.update = function() {
     //---------MOVEMENT----------------//
     player.body.velocity.x = 0;
 
-    if (cursors.left.isDown){//move to left
-        player.body.velocity.x = -150;
-        
-        //animation
-        player.animations.play('walk');
-        player.scale.x = -1;
-        
-        //footsteps audio
-        this.footsteps.play('', 0 , 1, false, false);﻿﻿
-        
-        //parallax
-        if (this.parallaxForeground != null) {
-          this.parallaxForeground.tilePosition.x += parallaxForegroundSpeed;
-          this.parallaxBackground.tilePosition.x += parallaxBackgroundSpeed;
-        }
-    }
-
-    else if (cursors.right.isDown){
-        player.body.velocity.x =150;//move to right
-        
-        //animation
-        player.animations.play('walk');
-        player.scale.x = 1;
-        
-        //footsteps audio
-        this.footsteps.play('', 0 , 1, false, false);﻿﻿
-        
-        //parallax
-        if (this.parallaxForeground != null) {
-          this.parallaxForeground.tilePosition.x -= parallaxForegroundSpeed;
-          this.parallaxBackground.tilePosition.x -= parallaxBackgroundSpeed;
+    if (!switching) {
+        if (cursors.left.isDown){//move to left
+            player.body.velocity.x = -playerSpeed;
+            
+            //animation
+            player.animations.play('walk');
+            player.scale.x = -playerScale;
+            
+            //footsteps audio
+            this.footsteps.play('', 0 , 1, false, false);﻿﻿
+            
+            //parallax
+            if (this.parallaxForeground != null) {
+              this.parallaxForeground.tilePosition.x += parallaxForegroundSpeed;
+              this.parallaxBackground.tilePosition.x += parallaxBackgroundSpeed;
+            }
         }
 
-    }
+        else if (cursors.right.isDown){
+            player.body.velocity.x = playerSpeed;//move to right
+            
+            //animation
+            player.animations.play('walk');
+            player.scale.x = playerScale;
+            
+            //footsteps audio
+            this.footsteps.play('', 0 , 1, false, false);﻿﻿
+            
+            //parallax
+            if (this.parallaxForeground != null) {
+              this.parallaxForeground.tilePosition.x -= parallaxForegroundSpeed;
+              this.parallaxBackground.tilePosition.x -= parallaxBackgroundSpeed;
+            }
 
-    else
-    {
-      this.footsteps.stop();
-      player.animations.play('stand'); // stand
+        }
+
+        else
+        {
+          this.footsteps.stop();
+          player.animations.play('stand'); // stand
+        }
+        //---------------------------------//
     }
-    //---------------------------------//
+    else if (!rose)
+        player.animations.play('stand');
 }
 
