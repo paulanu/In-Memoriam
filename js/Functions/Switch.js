@@ -30,6 +30,7 @@ function switchAnimation() {
 		fuck.height = game.world.height;
 		backgroundMusic.stop();
 		switching = false; 
+		rose = false;
 		game.state.start(switchLevelName, true, false, player.position.x, player.position.y, player.scale.x,
 			player.parallaxForeground.tilePosition.x, player.parallaxBackground.tilePosition.x, 1, true,
 			game.camera.x);

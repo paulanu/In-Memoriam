@@ -21,7 +21,7 @@ End.prototype = {
 	update: function() {
 		// start Play State
 		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
-    		game.state.start('PaulaTestLevel', true, false, 120, game.world.height - 350, 1);
+    		game.state.start('MainMenu', true, false, 120, game.world.height - 350, 1);
 		}
 	}
 }
