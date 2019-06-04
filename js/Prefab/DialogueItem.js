@@ -4,7 +4,10 @@ var msgBox;
 
 function DialogueItem(game, x, y, spriteWidth, width, height, atlasKey, key, dialogue){
 
-    var sprite = Phaser.Sprite.call(this, game, x, y, atlasKey, key);
+    if (atlasKey != null)
+        var sprite = Phaser.Sprite.call(this, game, x, y, atlasKey, key);
+    else
+        var sprite = Phaser.Sprite.call(this, game, x, y, key);
     this.spriteWidth = spriteWidth;
     this.minX = x - 90; 
     this.maxX = x + spriteWidth + 90; 
@@ -21,7 +24,8 @@ DialogueItem.prototype = Object.create(Phaser.Sprite.prototype);
 DialogueItem.prototype.constructor = DialogueItem;
 
 DialogueItem.prototype.update = function() {
-   if (player.position.x > this.minX && player.position.x < this.maxX && fadeInRect.frame == 19) {
+   if (player.position.x > this.minX && player.position.x < this.maxX && (fadeInRect.frame == 19 ||
+    fadeInRect.frame == 0)) {
         var x = this.position.x + ((this.spriteWidth - this.boxWidth) / 2); //center that beech 
         var y = player.position.y - 100; 
         this.showMessageBox(this.boxWidth, this.boxHeight, x, y, this.dialogue);

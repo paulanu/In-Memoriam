@@ -51,16 +51,15 @@ LevelOnePast.prototype = {
         var house = this.game.add.sprite(game.world.width - 410, 0, 'levelOneSprites', 'Sepia_House');
 
         //Tree with swing 
+        addGlow(965, 500, 170, 160, true);
         var tree = this.game.add.sprite(85 + extraWidth, 0, 'levelOneSprites', 'Sepia_Swing');
+        addGlow(965, 500, 170, 160, false);
 
         //mailbox
-        addGlow(690 + extraWidth, game.world.height - 130, 50, 350, true);
         var mailbox = this.game.add.sprite(650 + extraWidth, game.world.height - 350,
         'levelOneSprites', 'Sepia_Mailbox');
         mailbox.scale.x = .8;
         mailbox.scale.y = .8;
-        addGlow(690 + extraWidth, game.world.height - 130, 50, 350, false);
-        mailbox.inputEnabled = true;
 
         //PLAYER
         player = new Player(game, this.playerX, this.playerY, this.facing); 
@@ -69,7 +68,14 @@ LevelOnePast.prototype = {
     	player.parallaxBackground = backgroundTrees;
         game.add.existing(player);
 
-        mailbox.events.onInputDown.add(enterMemoryOrPresent, this, 0, {level:'LevelOnePresent'});
+        var switchObject = new DialogueItem(game, 925, 435, 135, 250, 100, null, 'fade_in',
+            "We used to play on this when we were kids.");
+        game.add.existing(switchObject);
+        switchObject.alpha = 0;
+        switchObject.width = 135;
+        switchObject.height = 145;
+        switchObject.inputEnabled = true;
+        switchObject.events.onInputDown.add(enterMemoryOrPresent, this, 0, {level:'LevelOnePresent'});
 
         //grass
         grass = this.game.add.tileSprite(0, game.world.height - 140, game.world.width, 140, 
