@@ -64,14 +64,10 @@ LevelOnePast.prototype = {
 
         //PLAYER
         player = new Player(game, this.playerX, this.playerY, this.facing); 
-        player.scale.x = this.facing;
-        player.scale.y = .65;
         player.footsteps = game.add.audio('grass_footsteps');
         player.parallaxForeground = foregroundTrees;
     	player.parallaxBackground = backgroundTrees;
         game.add.existing(player);
-        game.camera.follow(player);
-        game.camera.deadzone = new Phaser.Rectangle(100, 100, 200, 500);
 
         mailbox.events.onInputDown.add(enterMemoryOrPresent, this, 0, {level:'LevelOnePresent'});
 
@@ -87,8 +83,7 @@ LevelOnePast.prototype = {
         backgroundMusic.play('', 0, .3, true);    // ('marker', start position, volume (0-1), loop)
 
 
-	 //    // create fade in rect
-        console.log(this.cameraX);
+	    // create fade in rect
 	    fadeInRect = game.add.sprite(this.cameraX, 0, 'switch_animation');
         fadeInRect.width = game.camera.width;
         fadeInRect.height = game.camera.height;

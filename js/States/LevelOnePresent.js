@@ -67,14 +67,10 @@ LevelOnePresent.prototype = {
 
         //PLAYER
         player = new Player(game, this.playerX, this.playerY, this.facing); 
-        player.scale.x = this.facing;
-        player.scale.y = .65;
         player.footsteps = game.add.audio('grass_footsteps');
         player.parallaxForeground = foregroundTrees;
     	player.parallaxBackground = backgroundTrees;
         game.add.existing(player);
-        game.camera.follow(player);
-        game.camera.deadzone = new Phaser.Rectangle(100, 100, 200, 500);
 
         mailbox.events.onInputDown.add(enterMemoryOrPresent, this, 0, {level:'LevelOnePast'});
 
@@ -101,15 +97,12 @@ LevelOnePresent.prototype = {
 
 	    // create fade in rect for switching
 	    fadeInRect = game.add.sprite(this.cameraX, game.camera.y, 'switch_animation');
-        console.log(game.camera.x + " "  + game.camera.y);
-        console.log(this.cameraX + " " +  "FADEINRECT:" +  fadeInRect.position.x);
         fadeInRect.width = game.camera.width;
         fadeInRect.height = game.camera.height;
     	fadeInRect.animations.add('switch_animation', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
     		10,11,12,13,14,15,16,17,18], 5, false);
         fadeInRect.animations.add('enter_level', [17,16,15,14,13,12,11,10,9,8,
             7,6,5,4,3,2,1,0,19], 5, false);
-
     	if (this.playTransition) {
             weirdAfWorkAround = game.add.sprite(0, 0, 'fade_in');
             weirdAfWorkAround.width = game.world.width; 

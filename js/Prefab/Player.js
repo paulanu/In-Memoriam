@@ -13,6 +13,7 @@ function Player(game, x, y, scale){
 
     //for facing direction
     this.scale.x = scale;
+    this.scale.y = playerScale;
 
     //physics
     game.physics.arcade.enable(this);
@@ -28,6 +29,8 @@ function Player(game, x, y, scale){
     this.animations.add('stand', [8], 6, true);
     this.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 6, true);
 
+    game.camera.follow(this);
+    game.camera.deadzone = new Phaser.Rectangle(400, 100, 200, 500);
 }
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
