@@ -111,7 +111,6 @@ LevelOnePast.prototype = {
 	// },
 
     update: function() {
-        console.log(fadeInRect.position.x);
         switchAnimation();
     	game.physics.arcade.collide(player, grass);
 

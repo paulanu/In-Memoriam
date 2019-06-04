@@ -5,6 +5,7 @@ var msgBox;
 function DialogueItem(game, x, y, spriteWidth, width, height, atlasKey, key, dialogue){
 
     var sprite = Phaser.Sprite.call(this, game, x, y, atlasKey, key);
+    this.spriteWidth = spriteWidth;
     this.minX = x - 90; 
     this.maxX = x + spriteWidth + 90; 
     this.boxWidth = width;
@@ -21,8 +22,8 @@ DialogueItem.prototype.constructor = DialogueItem;
 
 DialogueItem.prototype.update = function() {
    if (player.position.x > this.minX && player.position.x < this.maxX && !switching) {
-    var x = this.position.x - 45; 
-    var y = this.position.y - this.boxHeight;
+    var x = this.position.x + ((this.spriteWidth - this.boxWidth) / 2); //center that beech 
+    var y = this.position.y - this.boxHeight - 10;
     this.showMessageBox(this.boxWidth, this.boxHeight, x, y, this.dialogue);
 
    }
