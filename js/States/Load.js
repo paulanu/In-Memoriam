@@ -17,7 +17,8 @@ Load.prototype= {
         game.load.audio('rain', 'assets/audio/rain_Background.mp3');
 
         game.load.audio('forest', 'assets/audio/forest.mp3');
-        
+        game.load.audio('crickets', 'assets/audio/crickets.mp3');
+
         //https://freesound.org/people/Yuval/sounds/206030/
         game.load.audio('grass_footsteps', 'assets/audio/grass_footsteps.mp3');
 
@@ -27,6 +28,8 @@ Load.prototype= {
         game.load.image('left', 'assets/img/left.png');
         game.load.image('right', 'assets/img/right.png');
         game.load.image('mouse', 'assets/img/mouse.png');
+
+        game.load.image('dawn_grass', 'assets/img/new/Dawn_Grass.png');
 
         //Temp 
         game.load.image('corona', 'assets/img/temp/blue.png');

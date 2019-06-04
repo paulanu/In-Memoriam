@@ -2,6 +2,7 @@ parallaxForegroundSpeed = .05;
 parallaxBackgroundSpeed = .02;
 var playerScale = .65;
 var playerSpeed = 200;
+var rose;
 
 function Player(game, x, y, scale){
     this.footsteps; 
@@ -85,7 +86,7 @@ Player.prototype.update = function() {
         }
         //---------------------------------//
     }
-    else
+    else if (!rose)
         player.animations.play('stand');
 }
 
