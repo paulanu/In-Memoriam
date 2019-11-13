@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+
+    "target": "es6",
+    "module": "es6",
+
+     "typeRoots": [
+          "node_modules/@types",
+          "node_modules/@mtime-node-contract",
+          "typings"
+    ]
+
+  }
+}

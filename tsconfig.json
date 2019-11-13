@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+
+    "target": "es6",
+    "module": "es6",
+    "skipLibCheck": true,
+    "outDir": "js",
+
+     "typeRoots": [
+          "node_modules/@types",
+          "node_modules/@mtime-node-contract",
+          "typings"
+    ]
+
+  }
+}
