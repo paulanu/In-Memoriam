@@ -3,6 +3,7 @@ var extraWidth = 700; //adjust this to change level width
 var arrowkey;
 var mouse;
 var mailbox;
+import DialogueObject from "/In_Memoriam/js/src/Classes/DialogueObject";
 export default class PorchPresent extends Phaser.Scene {
     constructor() {
         super(PORCHPRESENT_KEY);
@@ -23,7 +24,8 @@ export default class PorchPresent extends Phaser.Scene {
         var tree = this.add.sprite(100 + extraWidth, 0, 'porchImages', 'Night_Swing').setOrigin(0, 0);
         // //mailbox
         // addGlow(690 + extraWidth, game.world.height - 130, 60, 350, true);
-        // var mailbox = new DialogueItem(game, 650 + extraWidth, game.world.height - 350,
+        var mailbox = new DialogueObject(this, 300, 300, 'porchImages', 'Night_Mailbox', "dialogue here");
+        this.add.existing(mailbox);
         //  250, 100,'levelOneSprites', 'Night_Mailbox', "I haven't had the energy to look at these.");
         // game.add.existing(mailbox);
         // mailbox.scale.x =  .7;
