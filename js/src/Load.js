@@ -12,6 +12,10 @@ export default class Load extends Phaser.Scene {
         //       game.load.spritesheet('stairs', 'assets/img/stairs.png', 595, 618);
         //background
         this.load.atlas('porchImages', 'assets/art/porch.png', 'assets/art/porch.json');
+        this.load.image('textbox', 'assets/art/textbox.png');
+        this.load.image('card', 'assets/art/card_living_room.png');
+        this.load.image('picture', 'assets/art/picture_frame_living_room.png');
+        this.load.image('livingRoomPast', 'assets/art/Living_Room_Past.png');
         // this.load.atlasJSONHash('levelOneSprites', 'assets/img/LevelOne.png','assets/img/LevelOne.json');
         // game.load.atlasJSONHash('levelFiveSprites', 'assets/img/LevelFive.png','assets/img/LevelFive.json');
         // game.load.atlasJSONHash('levelTwoSprites', 'assets/img/LevelTwo.png', 'assets/img/LevelTwo.json');

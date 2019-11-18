@@ -19,33 +19,42 @@ export default class PorchPresent extends Phaser.Scene {
 
     create ()
     {
+
+        // this.input.on('pointerup', DialogueObject.destroyTextBox, this);
+
         // BACKGROUND ART ELEMENTS
         //NOTE: WHY DO HEIGHT / WIDTH NEED TO BE DOUBLED OM F G 
-        var background = this.add.tileSprite(0, 0, this.scale.width * 2, this.scale.height*2, 
-            'porchImages', 'Night_BG'
-        );
+        var background = this.add.image(this.scale.width/2, this.scale.height/2, 'livingRoomPast');
+        background.setInteractive(); 
+        background.on('pointerdown', DialogueObject.destroyTextBox);
+        // var backgroundTrees = this.add.tileSprite(0, 0, this.scale.width * 2, this.scale.height*2, 
+        //     'porchImages', 'Night_BG_Trees'
+        // );
 
-        var backgroundTrees = this.add.tileSprite(0, 0, this.scale.width * 2, this.scale.height*2, 
-            'porchImages', 'Night_BG_Trees'
-        );
-        var foregroundTrees = this.add.tileSprite(0, 0, this.scale.width * 2, this.scale.height*2, 
-            'porchImages', 'Night_FG_Trees'
-        );
+        // var foregroundTrees = this.add.tileSprite(0, 0, this.scale.width * 2, this.scale.height*2, 
+        //     'porchImages', 'Night_FG_Trees'
+        // );
 
         // backgroundTrees.tilePosition.x = this.bgTilePosX;
         // foregroundTrees.tilePosition.x = this.fgTilePosX;
 
         //SCENE ELEMENTS
-        var car = this.add.sprite(-100, this.scale.height - 340, 'porchImages', 'Night_Car').setOrigin(0, 0);
+        // var car = this.add.sprite(-100, this.scale.height - 340, 'porchImages', 'Night_Car').setOrigin(0, 0);
 
-        var house = this.add.sprite(this.scale.width - 393, 0, 'porchImages', 'Night_House').setOrigin(0, 0);
+        // var house = this.add.sprite(this.scale.width - 393, 0, 'porchImages', 'Night_House').setOrigin(0, 0);
 
-        var tree = this.add.sprite(100 + extraWidth, 0, 'porchImages', 'Night_Swing').setOrigin(0, 0);
+        // var tree = this.add.sprite(100 + extraWidth, 0, 'porchImages', 'Night_Swing').setOrigin(0, 0);
 
         // //mailbox
         // addGlow(690 + extraWidth, game.world.height - 130, 60, 350, true);
-        var mailbox = new DialogueObject(this, 300, 300, 'porchImages', 'Night_Mailbox', "dialogue here");
-        this.add.existing(mailbox);
+        var card = new DialogueObject(this, this.scale.width/2, this.scale.height/2, 'card',
+         "it's a dialogue box! There's stuff about the item! you have just clicked on it! hooray");
+        this.add.existing(card);
+
+        var picture = new DialogueObject(this, this.scale.width/2, this.scale.height/2, 'picture',
+         "MOOOORE DIALOGUE!!!!!!!!!!!!!!!");
+        this.add.existing(picture);
+
         //  250, 100,'levelOneSprites', 'Night_Mailbox', "I haven't had the energy to look at these.");
         // game.add.existing(mailbox);
         // mailbox.scale.x =  .7;

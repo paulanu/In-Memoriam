@@ -1,7 +1,11 @@
 var boxWidth = 100;
+var textBoxWidth = 300;
+var textBoxHeight = 125;
+var textBox;
+var text;
 export default class DialogueObject extends Phaser.GameObjects.Image {
-    constructor(scene, x, y, atlas, frame, dialogue) {
-        super(scene, x, y, atlas, frame);
+    constructor(scene, x, y, frame, dialogue) {
+        super(scene, x, y, frame);
         this.scene = scene;
         this.dialogue = dialogue;
         //set dialogue to appear when clicked (for alpha > 1)
@@ -11,7 +15,23 @@ export default class DialogueObject extends Phaser.GameObjects.Image {
         // this.alpha = 0; 
     }
     onClick() {
-        this.scene.add.text(this.x, this.y, "hello").setOrigin(.5, .5);
+        //check if text is already displayed
+        if (textBox && text) {
+            textBox.destroy();
+            text.destroy();
+        }
+        //display text and textbox
+        textBox = this.scene.add.image(this.scene.scale.width / 2, this.scene.scale.height - textBoxHeight, 'textbox');
+        text = this.scene.add.text(textBox.x, textBox.y, this.dialogue).setOrigin(.5, .5);
+        textBox.alpha = .4;
+        text.setWordWrapWidth(textBoxWidth * 2 - 25);
+    }
+    //use when player clicks outside of any dialogueobjects
+    static destroyTextBox() {
+        if (textBox && text) {
+            textBox.destroy();
+            text.destroy();
+        }
     }
 }
 // DialogueItem.prototype.update = function() {
